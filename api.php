@@ -29,12 +29,12 @@ function getSong() {
 	$artist = $arraySong[1];
 	$album = $arraySong[2];
 	$love = $arraySong[3];
-	$albumart = str_replace(" ","-","$artist-$album.jpg");
+	$albumart = str_replace(" ","-","{$artist}_{$album}.jpg");
 	$albumart = str_replace("/","-",$albumart);
 	$albumart = str_replace("#","",$albumart);
 	if (!file_exists("artwork/".$albumart))
 	{
-		$arrayRemove = array("(Explicit)", "(Single)", "(Radio Edit)", "US Bonus Track Version");
+		$arrayRemove = array("(Explicit)", "(Single)", "(Radio Edit)", "(US Bonus Track Version)", "(Radio Single)");
 		$albumCleaned = str_replace($arrayRemove, "", $album);
 		$lastfm = new SimpleXMLElement(file_get_contents("http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=72dde5529328e4f5da9eb6e3139876f4&artist=".urlencode($artist)."&album=".urlencode($albumCleaned)));
 		$image = $lastfm->album[0]->image[3];
