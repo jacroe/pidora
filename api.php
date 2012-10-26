@@ -34,7 +34,9 @@ function getSong() {
 	$albumart = str_replace("#","",$albumart);
 	if (!file_exists("artwork/".$albumart))
 	{
-		$lastfm = new SimpleXMLElement(file_get_contents("http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=72dde5529328e4f5da9eb6e3139876f4&artist=".urlencode($artist)."&album=".urlencode($album)));
+		$arrayRemove = array("(Explicit)", "(Single)", "(Radio Edit)", "US Bonus Track Version");
+		$albumCleaned = str_replace($arrayRemove, "", $album);
+		$lastfm = new SimpleXMLElement(file_get_contents("http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=72dde5529328e4f5da9eb6e3139876f4&artist=".urlencode($artist)."&album=".urlencode($albumCleaned)));
 		$image = $lastfm->album[0]->image[3];
 		if ($image == "") $image = "pandora.png";	
 		file_put_contents("artwork/".$albumart, file_get_contents($image));
