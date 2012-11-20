@@ -1,7 +1,6 @@
 <?php
 if (!$_GET) echo getSong();
-if ($_GET['control'])
-	file_put_contents("ctl", $_GET['control']);
+if ($_GET['control']) file_put_contents("ctl", "{$_GET['control']}\n");
 
 
 function getSong() {
@@ -9,7 +8,7 @@ function getSong() {
 	if (!file_exists("curSong")) 
 	{
 		$return = "
-	<img src=pandora.png class=albumart alt=\"Pandora logo\" />
+	<img src=imgs/pandora.png class=albumart alt=\"Pandora logo\" />
 	<h1>Hello There</h1>
 	<h2>Pianobar is starting up...</h2>";
 		die($return);
@@ -38,12 +37,12 @@ function getSong() {
 		$albumCleaned = str_replace($arrayRemove, "", $album);
 		$lastfm = new SimpleXMLElement(file_get_contents("http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=72dde5529328e4f5da9eb6e3139876f4&artist=".urlencode($artist)."&album=".urlencode($albumCleaned)));
 		$image = $lastfm->album[0]->image[3];
-		if ($image == "") $image = "pandora.png";	
+		if ($image == "") $image = "imgs/pandora.png";	
 		file_put_contents("artwork/".$albumart, file_get_contents($image));
 	}
 
 
-	if ($love==1) $return .= "<img src=love.png class=love width=20 />\n";
+	if ($love==1) $return .= "<img src=imgs/love.png class=love width=20 />";
 	$return .= "
 	<img src=artwork/$albumart class=albumart alt=\"Artwork for $album\" />
 	<h1>$title</h1>

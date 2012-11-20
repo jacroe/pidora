@@ -1,9 +1,12 @@
-body {background-color: #000; color: #fff; width: 80%; position:absolute; top:50%; left:50%; height:330px; width:1000px; margin-top:-165px; margin-left:-500px; font-weight: bold; font-family: Arial, sans-serif;}
+body {background-color: #000; color: #fff; font-family: Arial, sans-serif;}
 
-h1 {font-size:4em;}
-h1.msg {font-size:6em; text-align:center;}
-h2 {font-size:2em; margin:0}
-h2.album {font-style: italic;}
+#content {width: 80%; position:absolute; top:50%; left:50%; height:330px; width:1000px; margin-top:-165px; margin-left:-500px; font-weight: bold;}
+#content h1 {font-size:4em;}
+#content h1.msg {font-size:6em; text-align:center;}
+#content h2 {font-size:2em; margin:0}
+#content h2.album {font-style: italic;}
+#content img.albumart {float:left; padding-right:10px; margin-bottom:30px}
+#content img.love {float:right;}
 
-img.albumart {float:left; padding-right:10px; margin-bottom:30px}
-img.love {float:right;}
+#controls {float:right; text-align: right;}
+#controls a:hover {cursor: pointer;}
