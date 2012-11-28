@@ -3,7 +3,8 @@
 <head>
 <title>Pidora</title>
 <link rel=stylesheet href=styles.css />
-<script src="jquery.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script src="mousetrap.js"></script>
 <script>
 $(document).ready(function(){
 	oldData = $('#content').html();
@@ -19,12 +20,18 @@ $(document).ready(function(){
 	}, 3000);
 	$("#controls").hover(
 	   function(){
-	      $("#controls .c").fadeOut("fast", function(){$("a").fadeIn("slow");});
+	      $("#controls .c").fadeOut("fast", function(){$("#controls a").fadeIn("slow");});
 	   },
 	   function(){
-	      $("a").fadeOut("slow", function(){$("#controls .c").fadeIn("slow");});
+	      $("#controls a").fadeOut("slow", function(){$("#controls .c").fadeIn("slow");});
 	});
-	$("a").css("display", "none");
+	$("#controls a").css("display", "none");
+	
+	Mousetrap.bind('p', function() { $.get("api.php",{control:"p"}); });
+	Mousetrap.bind('n', function() { $.get("api.php",{control:"n"}); });
+	Mousetrap.bind('l', function() { $.get("api.php",{control:"+"}); });
+	Mousetrap.bind('b', function() { $.get("api.php",{control:"-"}); });
+	Mousetrap.bind('t', function() { $.get("api.php",{control:"t"}); });
 });
 </script>
 </head>
@@ -35,7 +42,7 @@ $(document).ready(function(){
 <a onclick=$.get("api.php",{control:"n"});>Next</a>
 <a onclick=$.get("api.php",{control:"+"});>Love</a>
 <a onclick=$.get("api.php",{control:"-"});>Ban</a>
-<a onclick=$.get("api.php",{control:"t"});>Shelve</a>
+<a onclick=$.get("api.php",{control:"t"});>Tired</a>
 </div>
 <div id=content>
 </div>

@@ -21,4 +21,4 @@ elif event == "songlove":
 elif event == "songban":
 	open(www + "msg", "w").write("Banned")
 elif event == "songshelf":
-	open(www + "msg", "w").write("Shelved")
+	open(www + "msg", "w").write("Tired")
