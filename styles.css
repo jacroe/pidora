@@ -5,7 +5,7 @@ body {background-color: #000; color: #fff; font-family: Arial, sans-serif;}
 #content h1.msg {font-size:6em; text-align:center;}
 #content h2 {font-size:2em; margin:0}
 #content h2.album {font-style: italic;}
-#content img.albumart {float:left; padding-right:10px; margin-bottom:30px}
+#content img.albumart {width:300px; height:300px; float:left; padding-right:10px; margin-bottom:30px}
 #content img.love {float:right;}
 
 #controls {float:right; text-align: right;}
