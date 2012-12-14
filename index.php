@@ -18,14 +18,7 @@ $(document).ready(function(){
 	      }
 	   });
 	}, 3000);
-	$("#controls").hover(
-	   function(){
-	      $("#controls .c").fadeOut("fast", function(){$("#controls a").fadeIn("slow");});
-	   },
-	   function(){
-	      $("#controls a").fadeOut("slow", function(){$("#controls .c").fadeIn("slow");});
-	});
-	$("#controls a").css("display", "none");
+	
 	
 	Mousetrap.bind('p', function() { $.get("api.php",{control:"p"}); });
 	Mousetrap.bind('n', function() { $.get("api.php",{control:"n"}); });
@@ -37,7 +30,6 @@ $(document).ready(function(){
 </head>
 <body>
 <div id=controls>
-<span class=c>C</span>
 <a onclick=$.get("api.php",{control:"p"});>Play</a>
 <a onclick=$.get("api.php",{control:"n"});>Next</a>
 <a onclick=$.get("api.php",{control:"+"});>Love</a>
