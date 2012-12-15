@@ -12,7 +12,7 @@ $album = $arraySong[2];
 $coverart = $arraySong[3];
 $love = $arraySong[4];
 
-$heading = "&ldquo;$title&rdquo; by $artist";
+$heading = "&ldquo;$title&rdquo;<br /> by $artist";
 if ($love) $heading .= " <3";
 ?>
 <!DOCTYPE html>

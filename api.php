@@ -28,6 +28,7 @@ function getSong() {
 	$artist = $arraySong[1];
 	$album = $arraySong[2];
 	$coverart = $arraySong[3];
+	if (!$coverart) $coverart = "imgs/pandora.png";
 	$love = $arraySong[4];
 	
 	if ($love==1) $return .= "<img src=imgs/love.png class=love width=20 />";
