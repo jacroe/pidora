@@ -20,7 +20,7 @@ $(document).ready(function(){
 	}, 3000);
 	
 	
-	Mousetrap.bind('p', function() { $.get("api.php",{control:"p"}); });
+	Mousetrap.bind(['p', 'space'], function() { $.get("api.php",{control:"p"}); });
 	Mousetrap.bind('n', function() { $.get("api.php",{control:"n"}); });
 	Mousetrap.bind('l', function() { $.get("api.php",{control:"+"}); });
 	Mousetrap.bind('b', function() { $.get("api.php",{control:"-"}); });

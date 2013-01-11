@@ -1,6 +1,11 @@
 <?php
 if (!$_GET) echo getSong();
-if ($_GET['control']) file_put_contents("ctl", "{$_GET['control']}\n");
+if ($_GET['control']) 
+{
+	file_put_contents("ctl", "{$_GET['control']}\n");
+
+	if ($_GET['control'] == "n") file_put_contents("msg", "Skipped");
+}
 
 
 function getSong() {
