@@ -23,7 +23,7 @@ if ($love) $heading .= " <3";
 <body style="text-align:center; width:300px; font-size:2em;">
 <strong><?php echo $heading; ?></strong><br />
 <br />
-<a href="?p=p">Play</a><br />
+<a href="?p=p">Pause</a><br />
 <a href="?p=n">Next</a><br />
 <a href="?p=%2B">Love</a><br />
 <a href="?p=-">Ban</a><br />
