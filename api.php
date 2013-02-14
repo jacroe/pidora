@@ -1,6 +1,6 @@
 <?php
 if (!$_GET) echo getSong();
-if ($_GET['control']) 
+elseif ($_GET['control']) 
 {
 	if ($_GET['control'] == "e")
 	{

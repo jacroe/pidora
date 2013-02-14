@@ -20,32 +20,37 @@ $(document).ready(function(){
 	}, 3000);
 	
 	
-	Mousetrap.bind(['p', 'space'], function() { $.get("api.php",{control:"p"}); });
-	Mousetrap.bind('n', function() { $.get("api.php",{control:"n"}); });
-	Mousetrap.bind('l', function() { $.get("api.php",{control:"+"}); });
-	Mousetrap.bind('b', function() { $.get("api.php",{control:"-"}); });
-	Mousetrap.bind('t', function() { $.get("api.php",{control:"t"}); });
-	Mousetrap.bind('e', function() {
+	Mousetrap.bind(['p', 'space'], function() { control('p'); });
+	Mousetrap.bind('n', function() { control('n'); });
+	Mousetrap.bind('l', function() { control('+'); });
+	Mousetrap.bind('b', function() { control('-'); });
+	Mousetrap.bind('t', function() { control('t'); });
+	Mousetrap.bind('e', function() { explain(); });
+});
+function control(action)
+{
+	$.get("api.php", {control:action});
+};
+function explain()
+{
 	   details = $('p.details').html();
 	   if (details == "EMPTY")
 	   {
 	      $.get("api.php",{control:"e"})
-	      .done(function(data) {
-	         $('p.details').html(data).toggle("slow");
-	      });
+	      .done(function(data) { $('p.details').html(data).toggle("slow"); });
 	   }
 	   else {$('p.details').toggle("slow");}
-	});
-});
+};
 </script>
 </head>
 <body>
 <div id=controls>
-<a onclick=$.get("api.php",{control:"p"});>Play</a>
-<a onclick=$.get("api.php",{control:"n"});>Next</a>
-<a onclick=$.get("api.php",{control:"+"});>Love</a>
-<a onclick=$.get("api.php",{control:"-"});>Ban</a>
-<a onclick=$.get("api.php",{control:"t"});>Tired</a>
+<a onclick=control('p');>Play</a>
+<a onclick=control('n');>Next</a>
+<a onclick=control('+');>Love</a>
+<a onclick=control('-');>Ban</a>
+<a onclick=control('t');>Tired</a>
+<a onclick=explain();>Explain</a>
 </div>
 <div id=content>
 </div>
