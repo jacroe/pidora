@@ -25,6 +25,17 @@ $(document).ready(function(){
 	Mousetrap.bind('l', function() { $.get("api.php",{control:"+"}); });
 	Mousetrap.bind('b', function() { $.get("api.php",{control:"-"}); });
 	Mousetrap.bind('t', function() { $.get("api.php",{control:"t"}); });
+	Mousetrap.bind('e', function() {
+	   details = $('p.details').html();
+	   if (details == "EMPTY")
+	   {
+	      $.get("api.php",{control:"e"})
+	      .done(function(data) {
+	         $('p.details').html(data).toggle("slow");
+	      });
+	   }
+	   else {$('p.details').toggle("slow");}
+	});
 });
 </script>
 </head>
