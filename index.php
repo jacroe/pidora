@@ -13,13 +13,13 @@ $(document).ready(function(){
 	   {
 	      if (!(oldData == newData))
 	      {
-		 oldData = newData;         
+		 oldData = newData;
 		 $('#content').fadeOut('slow', function(){$(this).html(newData).fadeIn('slow')});
 	      }
 	   });
 	}, 3000);
-	
-	
+
+
 	Mousetrap.bind(['p', 'space'], function() { control('p'); });
 	Mousetrap.bind('n', function() { control('n'); });
 	Mousetrap.bind('l', function() { control('+'); });
@@ -36,8 +36,9 @@ function explain()
 	   details = $('p.details').html();
 	   if (details == "EMPTY")
 	   {
+	      $('p.details').html("Grabbing explanation...").toggle("slow");
 	      $.get("api.php",{control:"e"})
-	      .done(function(data) { $('p.details').html(data).toggle("slow"); });
+	      .done(function(data) { $('p.details').html(data); });
 	   }
 	   else {$('p.details').toggle("slow");}
 };
