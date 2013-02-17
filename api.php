@@ -43,7 +43,7 @@ function getSong() {
 	$coverart = $arraySong[3];
 	if ($coverart)
 	{
-		$temp = "albumart/".md5($coverart).".jpg";
+		$temp = "albumart/".md5($album).".jpg";
 		if (!file_exists($temp)) file_put_contents($temp, file_get_contents($coverart));
 		$coverart = $temp;
 	}
