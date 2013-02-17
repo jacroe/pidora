@@ -36,11 +36,11 @@ function explain()
 	   details = $('p.details').html();
 	   if (details == "EMPTY")
 	   {
-	      $('p.details').html("Grabbing explanation...").toggle("slow");
+	      $('p.details').html("Grabbing explanation...").fadeToggle("slow");
 	      $.get("api.php",{control:"e"})
-	      .done(function(data) { $('p.details').html(data); });
+	      .done(function(data) { $('p.details').fadeOut('slow', function(){$(this).html(data).fadeIn('slow')}); });
 	   }
-	   else {$('p.details').toggle("slow");}
+	   else {$('p.details').fadeToggle("slow");}
 };
 </script>
 </head>
