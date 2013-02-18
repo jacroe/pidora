@@ -64,7 +64,8 @@ function getDetails($url = NULL)
 		$url = $arraySong[5];
 	}
 	$data = file_get_contents($url);
-	preg_match("#features of this track(.*?)\<p\>These are just a#is", $data, $matches);
+	#preg_match("#features of this track(.*?)\<p\>These are just a#is", $data, $matches); // uncomment this if explanations act funny
+	preg_match("#features of this track(.*?)\</div\>#is", $data, $matches);
 	$strip = array("Features of This Track</h2>", "<div style=\"display: none;\">", "</div>", "<p>These are just a");
 	$data = explode("<br>", str_replace($strip, "", $matches[0]));
 	unset($data[count($data)-1]);
