@@ -26,16 +26,16 @@ function stationSetup()
 	index = 0;
 	getStations(index);
 	Mousetrap.reset();
-	Mousetrap.bind('0', function() { control('s'.concat(index,'0')); setMousetraps(); });
-	Mousetrap.bind('1', function() { control('s'.concat(index,'1')); setMousetraps(); });
-	Mousetrap.bind('2', function() { control('s'.concat(index,'2')); setMousetraps(); });
-	Mousetrap.bind('3', function() { control('s'.concat(index,'3')); setMousetraps(); });
-	Mousetrap.bind('4', function() { control('s'.concat(index,'4')); setMousetraps(); });
-	Mousetrap.bind('5', function() { control('s'.concat(index,'5')); setMousetraps(); });
-	Mousetrap.bind('6', function() { control('s'.concat(index,'6')); setMousetraps(); });
-	Mousetrap.bind('7', function() { control('s'.concat(index,'7')); setMousetraps(); });
-	Mousetrap.bind('8', function() { control('s'.concat(index,'8')); setMousetraps(); });
-	Mousetrap.bind('9', function() { control('s'.concat(index,'9')); setMousetraps(); });
+	Mousetrap.bind('0', function() { control('s'.concat(index,'0')); });
+	Mousetrap.bind('1', function() { control('s'.concat(index,'1')); });
+	Mousetrap.bind('2', function() { control('s'.concat(index,'2')); });
+	Mousetrap.bind('3', function() { control('s'.concat(index,'3')); });
+	Mousetrap.bind('4', function() { control('s'.concat(index,'4')); });
+	Mousetrap.bind('5', function() { control('s'.concat(index,'5')); });
+	Mousetrap.bind('6', function() { control('s'.concat(index,'6')); });
+	Mousetrap.bind('7', function() { control('s'.concat(index,'7')); });
+	Mousetrap.bind('8', function() { control('s'.concat(index,'8')); });
+	Mousetrap.bind('9', function() { control('s'.concat(index,'9')); });
 	Mousetrap.bind('n', function() { getStations(++index); })
 	Mousetrap.bind('b', function() { getStations(--index); })
 	Mousetrap.bind('esc', function()
@@ -85,6 +85,7 @@ function setMousetraps()
 <a onclick=control('-');>Ban</a>
 <a onclick=control('t');>Tired</a>
 <a onclick=explain();>Explain</a>
+<a onclick=stationSetup();>Station</a>
 </div>
 <div id=content>
 </div>
