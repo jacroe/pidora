@@ -21,7 +21,7 @@ That's it for the installation. Now let's configure our machine to automatically
 4.	Finally, remove all the icons on the desktop and set the statusbar to hide automatically. This isn't necessary but it gives less an impression that this is a computer.
 
 
-Notes
-=====
+Contact me
+==========
 
-You may be wondering why I wanted this to be graphical. Well, I didn't. The idea was that there would be a small speakers plugged into the 3.5mm jack and that would be that. But because of the analog popping bug in ALSA, it became annoying. So it had to be plugged into HDMI (I'll change this if I ever buy a USB audio dongle; I hear the bug's not present there). Which led me to need something to display while it was running. And this was my solution.
+You can shoot me an email or submit an issue at [GitHub](https://github.com/jacroe/pidora/issues/new) if you have a question or a suggestion. I welcome them with open arms.
