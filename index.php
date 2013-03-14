@@ -72,6 +72,7 @@ function setMousetraps()
 	Mousetrap.bind('l', function() { control('+'); });
 	Mousetrap.bind('b', function() { control('-'); });
 	Mousetrap.bind('t', function() { control('t'); });
+	Mousetrap.bind('q', function() { control('q'); });
 	Mousetrap.bind('e', function() { explain(); });
 	Mousetrap.bind('s', function() { stationSetup(); });
 }
@@ -79,13 +80,13 @@ function setMousetraps()
 </head>
 <body>
 <div id=controls>
-<a onclick=control('p');>Play</a>
-<a onclick=control('n');>Next</a>
-<a onclick=control('+');>Love</a>
-<a onclick=control('-');>Ban</a>
-<a onclick=control('t');>Tired</a>
-<a onclick=explain();>Explain</a>
-<a onclick=stationSetup();>Station</a>
+<a onclick="control('p');">Play</a>
+<a onclick="control('n');">Next</a>
+<a onclick="control('+');">Love</a>
+<a onclick="control('-');">Ban</a>
+<a onclick="control('t');">Tired</a>
+<a onclick="explain();">Explain</a>
+<a onclick="stationSetup();">Station</a>
 </div>
 <div id=content>
 </div>
