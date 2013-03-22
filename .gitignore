@@ -1,6 +1,10 @@
+# Files to ignore because of end-use
 albumart/*.*
 ctl
 curSong
 msg
 stationList
-pianobar.csv
+
+# Files to ignore because of development
+alice.sublime-project
+alice.sublime-workspace
