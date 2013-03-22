@@ -1,15 +1,15 @@
 <?php
-if (!file_exists("curSong"))
-{
-	$return = "<img src=imgs/pandora.png class=albumart alt=\"Pandora logo\" />
-<h1>Hello There</h1>
-<h2>Pianobar is starting up...</h2>";
-}
-elseif (file_exists("msg"))
+if (file_exists("msg"))
 {
 	$msg = file_get_contents("msg");
 	unlink("msg");
 	$return = "<h1 class=msg>$msg</h1>";
+}
+elseif (!file_exists("curSong"))
+{
+	$return = "<img src=imgs/pandora.png class=albumart alt=\"Pandora logo\" />
+<h1>Hello There</h1>
+<h2>Pianobar is starting up...</h2>";
 }
 elseif ($_GET['control']) 
 {
@@ -23,6 +23,12 @@ elseif ($_GET['control'])
 		file_put_contents("ctl", "$c\n");
 		
 		if ($c == "n") file_put_contents("msg", "Skipped");
+		if ($c == "q")
+		{
+			file_put_contents("msg", "Shutdown");
+			unlink("curSong");
+			unlink("stationList");
+		}
 		if ($c[0] == "s") file_put_contents("msg", "Changing stations");
 		$return = "ok";
 	}
