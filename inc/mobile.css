@@ -1,0 +1,118 @@
+    body {
+        margin:0;
+        padding:0;
+        border:0;           /* This removes the border around the viewport in old versions of IE */
+        width:100%;
+        min-width:300px;        /* Minimum width of layout - remove line if not required */
+        background:#101a4d;
+                        /* The min-width property does not work in old versions of Internet Explorer */
+        font-size:90%;
+        font-family: Arial, sans-serif;
+        overflow:hidden;
+        
+    }
+    .displayed {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: center;
+    }
+
+    a {
+        color:#fff;
+    }
+    a:hover {
+        color:#369;
+        background:#fff;
+        text-decoration:none;
+    }
+    h1, h2, h3 {
+        margin:.8em 0 .2em 0;
+        padding:0;
+        color:#fff;
+    }
+    p {
+        margin:.4em 0 .8em 0;
+        padding:0;
+        color: #c0c0c0;
+    }
+    img {
+        margin:10px 0 5px;
+    }
+    /* Header styles */
+    #header {
+        width:100%;
+        display: inline-block;
+        text-align:center;
+        border-bottom:4px solid #000;
+    }
+    #header ul {
+        width:100%;
+        list-style:none;
+        margin:10px 0 0 0;
+        padding:0;
+    }
+    #header ul li {
+        display:inline-block;
+        list-style:none;
+        margin:0;
+        padding:0;
+    }
+    #header ul li a {
+        margin:0 0 0 1px;
+        padding:3px 10px;
+        text-align:center;
+        color:#000;
+        text-decoration:none;
+        position:relative;
+        line-height:1.3em;
+        background:#eee;
+    }
+    #header ul li a:hover {
+        background:#369;
+        color:#fff;
+    }
+    #header ul li a.active,
+    #header ul li a.active:hover {
+        color:#fff;
+        background:#000;
+        font-weight:bold;
+    }
+    /* 'widths' sub menu */
+    /* column container */
+    .colmask {
+        position:relative;  /* This fixes the IE7 overflow hidden bug */
+        clear:both;
+        float:left;
+        width:100%;         /* width of whole page */
+        overflow:hidden;        /* This chops off any overhanging divs */
+    }
+    /* common column settings */
+    .colright,
+    .colmid,
+    .colleft {
+        float:left;
+        width:100%;
+        position:relative;
+    }
+    .col1,
+    .col2,
+    .col3 {
+        float:left;
+        position:relative;
+        padding:0 0 1em 0;
+        overflow:hidden;
+    }
+    /* Full page settings */
+    .fullpage {
+        background:#c0c0c0;        /* page background colour */
+    }
+    .fullpage .col1 {
+        width:100%;          /* page width minus left and right padding */
+    }
+    /* Footer styles */
+    #footer {
+        width:100%;
+        border-top:1px solid #000;
+    }
+    /* --> */

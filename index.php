@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 <title>Pidora</title>
-<link rel=stylesheet href=styles.css />
+<link rel=stylesheet href=inc/styles.css />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-<script src="mousetrap.js"></script>
+<script src="lib/mousetrap.js"></script>
 <script>
 $(document).ready(function(){
 	

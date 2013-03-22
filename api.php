@@ -7,7 +7,7 @@ if (file_exists("msg"))
 }
 elseif (!file_exists("curSong"))
 {
-	$return = "<img src=imgs/pandora.png class=albumart alt=\"Pandora logo\" />
+	$return = "<img src=inc/pandora.png class=albumart alt=\"Pandora logo\" />
 <h1>Hello There</h1>
 <h2>Pianobar is starting up...</h2>";
 }
@@ -67,10 +67,10 @@ function getSong() {
 		if (!file_exists($temp)) file_put_contents($temp, file_get_contents($coverart));
 		$coverart = $temp;
 	}
-	else $coverart = "imgs/pandora.png";
+	else $coverart = "inc/pandora.png";
 	$love = $arraySong[4];
 	
-	if ($love==1) $return .= "<img src=imgs/love.png class=love width=20 />";
+	if ($love==1) $return .= "<img src=inc/love.png class=love width=20 />";
 	$return .= "
 	<img src=$coverart class=albumart alt=\"Artwork for $album\" />
 	<h1>$title</h1>
