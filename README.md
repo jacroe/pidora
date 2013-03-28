@@ -3,7 +3,7 @@ Pidora
 
 *This is a quick and dirty README. Use at your own risk*
 
-1.	Install pianobar, apache2, libapache2-mod-php5, and python-feedparser and their dependencies
+1.	Install pianobar, apache2, libapache2-mod-php5, mpg123, and python-feedparser and their dependencies
 2.	Configure Apache2 and PHP the way you like. I followed this [guide](https://help.ubuntu.com/community/ApacheMySQLPHP#Installing_Apache_2) and moved my `www` folder to the home directory.
 3.	Create an `albumart` directory in the pidora server directory and make sure it's writeable by the server.
 4.	Configure pianobar until you are able to run <tt>pianobar</tt> from the command line without any interaction. The man file is particularly helpful. If you get a "TLS Handshake failed" error, run [this command](https://gist.github.com/4200610). It will append the correct TLS fingerprint to your config file.
