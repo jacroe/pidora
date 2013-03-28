@@ -4,7 +4,9 @@ ctl
 curSong
 msg
 stationList
+lastNews
+newscast.mp3
 
 # Files to ignore because of development
-alice.sublime-project
-alice.sublime-workspace
+pidora.sublime-project
+pidora.sublime-workspace

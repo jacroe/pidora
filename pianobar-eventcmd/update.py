@@ -1,7 +1,12 @@
 #!/usr/bin/env python
 
-import sys, csv
+import sys, csv, subprocess
 
+def process(command, new = False):
+	if new:
+		with open(os.devnull, "w") as fnull: result = subprocess.Popen(command, stdout = fnull, stderr = fnull)
+	else:
+		with open(os.devnull, "w") as fnull: result = subprocess.call(command, stdout = fnull, stderr = fnull)
 www = "/home/jacob/www/pianobar/"
 
 event = sys.argv[1]
@@ -17,6 +22,18 @@ detailUrl = fields["detailUrl"]
 
 if event == "songstart":
 	open(www + "curSong", "w").write(title + "|" + artist + "|" + album + "|" + coverArt + "|" + rating + "|" + detailUrl)
+elif event == "songfinish":
+	import feedparser, urllib, os
+	feed = feedparser.parse("http://www.npr.org/rss/podcast.php?id=500005")
+	if not os.path.lexists(www + "lastNews"): open(www + "lastNews", "w").write("-1")
+	time = int(open(www + "lastNews", "r").read())
+	if feed.entries[0].updated_parsed.tm_hour > time:
+		urllib.urlretrieve(feed.entries[0].id, www + "newscast.mp3")
+		open(www + "lastNews", "w").write(str(feed.entries[0].updated_parsed.tm_hour))
+		open(www + "curSong", "w").write(feed.entries[0].title + "|" + feed.feed.title + "|" + feed.feed.title + "|http://media.npr.org/images/podcasts/2013/primary/hourly_news_summary.png|0|null")
+		process(["killall", "pianobar"], True)
+		process(["mpg123", www + "newscast.mp3"])
+		process(["pianobar"], True)
 elif event == "songlove":
 	open(www + "curSong", "w").write(title + "|" + artist + "|" + album + "|" + coverArt + "|1|" + detailUrl)
 	open(www + "msg", "w").write("Loved")

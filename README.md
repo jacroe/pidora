@@ -3,12 +3,12 @@ Pidora
 
 *This is a quick and dirty README. Use at your own risk*
 
-1.	Install pianobar, apache2, and libapache2-mod-php5 and their dependencies
+1.	Install pianobar, apache2, libapache2-mod-php5, and python-feedparser and their dependencies
 2.	Configure Apache2 and PHP the way you like. I followed this [guide](https://help.ubuntu.com/community/ApacheMySQLPHP#Installing_Apache_2) and moved my `www` folder to the home directory.
 3.	Create an `albumart` directory in the pidora server directory and make sure it's writeable by the server.
 4.	Configure pianobar until you are able to run <tt>pianobar</tt> from the command line without any interaction. The man file is particularly helpful. If you get a "TLS Handshake failed" error, run [this command](https://gist.github.com/4200610). It will append the correct TLS fingerprint to your config file.
 5.	Create a FIFO file by running `mkfifo ctl` in your pidora directory. Make this writable by the server. You can do this by running `chgrp www-data ctl` and then `chmod g+w ctl`. Depending on your permissions, you may need to run those as root.
-6.	Edit your pianobar config file by adding the `fifo` and `event_command` variables and their location. The `event_command` should point to the Python script which can be found in the `pianobar-eventcmd\` directory. You can use this [sample config file](https://gist.github.com/jacroe/cd1850ad6a1fcf4a72e3) as a guide.
+6.	Edit your pianobar config file by adding the `fifo` and `event_command` variables and their location. The `event_command` should point to the `update.py` Python script which can be found in the `pianobar-eventcmd/` directory. You can use this [sample config file](https://gist.github.com/jacroe/cd1850ad6a1fcf4a72e3) as a guide.
 7.	Edit the directory location in the python script to point to the root of pidora.
 8.	Run pianobar and open Midori to the location of pidora. You should see the song information and the album art. This should fade out with the next song. Try Loving, Banning, and Shelving a song. The appropriate message should fade in then out again.
 

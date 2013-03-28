@@ -28,6 +28,7 @@ elseif ($_GET['control'])
 			file_put_contents("msg", "Shutdown");
 			unlink("curSong");
 			unlink("stationList");
+			foreach (glob("albumart/*.jpg") as $delete) unlink($delete);
 		}
 		if ($c[0] == "s") file_put_contents("msg", "Changing stations");
 		$return = "ok";
