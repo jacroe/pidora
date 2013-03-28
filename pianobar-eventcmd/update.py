@@ -27,7 +27,7 @@ elif event == "songfinish":
 	feed = feedparser.parse("http://www.npr.org/rss/podcast.php?id=500005")
 	if not os.path.lexists(www + "lastNews"): open(www + "lastNews", "w").write("-1")
 	time = int(open(www + "lastNews", "r").read())
-	if feed.entries[0].updated_parsed.tm_hour > time:
+	if feed.entries[0].updated_parsed.tm_hour != time:
 		urllib.urlretrieve(feed.entries[0].id, www + "newscast.mp3")
 		open(www + "lastNews", "w").write(str(feed.entries[0].updated_parsed.tm_hour))
 		open(www + "curSong", "w").write(feed.entries[0].title + "|" + feed.feed.title + "|" + feed.feed.title + "|http://media.npr.org/images/podcasts/2013/primary/hourly_news_summary.png|0|null")
