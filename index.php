@@ -3,11 +3,12 @@
 <head>
 <title>Pidora</title>
 <link rel=stylesheet href=inc/styles.css />
+<link rel="icon" type="image/png" href="favicon.ico">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="lib/mousetrap.js"></script>
 <script>
 $(document).ready(function(){
-	
+
 	oldData = $('#content').html();
 	window.setInterval(function(){
 	   $.get("api.php", function(newData)
@@ -80,7 +81,7 @@ function setMousetraps()
 </head>
 <body>
 <div id=controls>
-<a onclick="control('p');">Play</a>
+<a onclick="control('p');">Pause</a>
 <a onclick="control('n');">Next</a>
 <a onclick="control('+');">Love</a>
 <a onclick="control('-');">Ban</a>
