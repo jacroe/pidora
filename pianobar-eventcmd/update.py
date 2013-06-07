@@ -22,7 +22,7 @@ detailUrl = fields["detailUrl"]
 
 if event == "songstart":
 	open(www + "curSong", "w").write(title + "|" + artist + "|" + album + "|" + coverArt + "|" + rating + "|" + detailUrl)
-elif event == "songfinis":
+elif event == "songfinish":
 	import feedparser, urllib
 	feed = feedparser.parse("http://www.npr.org/rss/podcast.php?id=500005")
 	if not os.path.lexists(www + "lastNews"): open(www + "lastNews", "w").write("-1")
