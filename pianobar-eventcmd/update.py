@@ -29,10 +29,9 @@ elif event == "songfinish":
 	time = int(open(www + "lastNews", "r").read())
 	if feed.entries[0].updated_parsed.tm_hour != time:
 		open(www + "ctl", "w").write("p")
-		urllib.urlretrieve(feed.entries[0].id, www + "newscast.mp3")
 		open(www + "lastNews", "w").write(str(feed.entries[0].updated_parsed.tm_hour))
 		open(www + "curSong", "w").write(feed.entries[0].title + "|" + feed.feed.title + "|" + feed.feed.title + "|http://media.npr.org/images/podcasts/2013/primary/hourly_news_summary.png|0|null")
-		process(["mpg123", www + "newscast.mp3"])
+		process(["mpg123", feed.entries[0].id])
 		open(www + "ctl", "w").write("p")
 elif event == "songlove":
 	open(www + "curSong", "w").write(title + "|" + artist + "|" + album + "|" + coverArt + "|1|" + detailUrl)
