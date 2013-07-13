@@ -45,7 +45,7 @@ rm -rf ~/www/
 echo "We'll now start cloning into Pidora"
 git clone https://github.com/jacroe/pidora.git -q
 echo "Downloading finished. Setting up now"
-mv pidora/ www/
+mv pidora/* www/
 sudo chgrp www-data www/
 chmod g+w www/
 mkdir www/albumart/
