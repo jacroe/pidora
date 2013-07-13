@@ -7,19 +7,45 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="lib/mousetrap.js"></script>
 <script>
-$(document).ready(function(){
-
-	oldData = $('#content').html();
-	window.setInterval(function(){
-	   $.get("api.php", function(newData)
-	   {
-	      if (!(oldData == newData))
-	      {
-		 oldData = newData;
-		 $('#content').fadeOut('slow', function(){$(this).html(newData).fadeIn('slow')});
-		 setMousetraps();
-	      }
-	   });
+$(document).ready(function()
+{
+	var msgShown = false;
+	oldData = $('#content h1').html();
+	window.setInterval(function()
+	{
+		if(msgShown)
+		$('#msg').fadeOut('slow', function()
+		{
+			$('#content').fadeIn('slow');
+		});
+		$.get("api.php", function(newData)
+		{
+			var newDataObj = JSON.parse(newData)
+			if(newDataObj.msg)
+			{
+				$('#content').fadeOut('slow', function()
+				{
+					$('#msg h1').html(newDataObj.msg);
+					$('#msg').fadeIn('slow');
+					msgShown = true;
+				});
+			}
+			else if (!(oldData == newDataObj.title) && newDataObj.title)
+			{
+				oldData = newDataObj.title;
+				$('#content').fadeOut('slow', function()
+				{
+					$('#content h1').html(newDataObj.title)
+					$('#content h2').html(newDataObj.artist)
+					$('#content .album').html(newDataObj.album)
+					$('#content .details').html("EMPTY")
+					if(newDataObj.loved) {$('#content .love').show()} else {$('#content .love').hide()}
+					$('#content .albumart').attr("src", newDataObj.artURL)
+					$('#content').fadeIn('slow')
+				});
+				setMousetraps();
+			}
+		});
 	}, 3000);
 });
 function stationSetup()
@@ -37,18 +63,33 @@ function stationSetup()
 	Mousetrap.bind('7', function() { control('s'.concat(index,'7')); });
 	Mousetrap.bind('8', function() { control('s'.concat(index,'8')); });
 	Mousetrap.bind('9', function() { control('s'.concat(index,'9')); });
-	Mousetrap.bind('n', function() { getStations(++index); })
-	Mousetrap.bind('b', function() { getStations(--index); })
+	Mousetrap.bind('n', function() { getStations(++index, true); })
+	Mousetrap.bind('b', function() { getStations(--index, true); })
 	Mousetrap.bind('esc', function()
 	{
-	    $('#content').fadeOut('slow', function(){$(this).html(oldData).fadeIn('slow')});
+	    $('#stationList').fadeOut('slow', function(){$('#content').fadeIn('slow')});
 	    setMousetraps();
 	});
 }
-function getStations(index)
+function getStations(index, shown)
 {
-	$.get("api.php", {station:index})
-	   .done(function(stationList) {$('#content').fadeOut('slow', function(){$(this).html(stationList).fadeIn('slow')}); });
+	$.get("api.php", {station:index}).done(function(stationList)
+	{
+		if(shown)
+		{
+			$('#stationList').fadeOut('slow', function()
+			{
+				$('#stationList').html(stationList).fadeIn('slow');
+			});
+		}
+		else
+		{
+			$('#content').fadeOut('slow', function()
+			{
+				$('#stationList').html(stationList).fadeIn('slow');
+			});
+		}
+	});
 }
 function control(action)
 {
@@ -56,14 +97,20 @@ function control(action)
 };
 function explain()
 {
-	   details = $('p.details').html();
-	   if (details == "EMPTY")
-	   {
-	      $('p.details').html("Grabbing explanation...").fadeToggle("slow");
-	      $.get("api.php",{control:"e"})
-	         .done(function(data) { $('p.details').fadeOut('slow', function(){$(this).html(data).fadeIn('slow')}); });
-	   }
-	   else {$('p.details').fadeToggle("slow");}
+	details = $('p.details').html();
+	if (details == "EMPTY")
+	{
+		$('p.details').html("Grabbing explanation...").fadeToggle("slow");
+		$.get("api.php",{control:"e"}).done(function(data)
+		{
+			dataObj = JSON.parse(data);
+			$('p.details').fadeOut('slow', function()
+			{
+				$(this).html(dataObj.explanation).fadeIn('slow')
+			});
+		});
+	}
+	else {$('p.details').fadeToggle("slow");}
 };
 function setMousetraps()
 {
@@ -80,7 +127,8 @@ function setMousetraps()
 </script>
 </head>
 <body>
-<div id=controls>
+
+<div id="controls">
 <a onclick="control('p');">Pause</a>
 <a onclick="control('n');">Next</a>
 <a onclick="control('+');">Love</a>
@@ -89,7 +137,22 @@ function setMousetraps()
 <a onclick="explain();">Explain</a>
 <a onclick="stationSetup();">Station</a>
 </div>
-<div id=content>
+
+<div id="content">
+<img src=inc/love.png class=love style="display:none" />
+<img src=inc/pandora.png class=albumart alt="Pandora logo" />
+<h1>Hello There</h1>
+<h2>Pianobar is starting up...</h2>
+<h2 class=album></h2>
+<p class=details>EMPTY</p>
 </div>
+
+<div id="stationList" style="display:none">
+</div>
+
+<div id="msg" style="display:none">
+<h1></h1>
+</div>
+
 </body>
 </html>

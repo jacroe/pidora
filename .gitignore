@@ -1,11 +1,10 @@
 # Files to ignore because of end-use
 albumart/*.*
 ctl
-curSong
+curSong.json
 msg
 stationList
 lastNews
-newscast.mp3
 
 # Files to ignore because of development
 pidora.sublime-project

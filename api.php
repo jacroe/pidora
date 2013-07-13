@@ -3,13 +3,11 @@ if (file_exists("msg"))
 {
 	$msg = file_get_contents("msg");
 	unlink("msg");
-	$return = "<h1 class=msg>$msg</h1>";
+	$return = json_encode(array("msg"=>$msg));
 }
-elseif (!file_exists("curSong"))
+elseif (!file_exists("curSong.json"))
 {
-	$return = "<img src=inc/pandora.png class=albumart alt=\"Pandora logo\" />
-<h1>Hello There</h1>
-<h2>Pianobar is starting up...</h2>";
+	$return = json_encode(array("album"=>"","loved"=>false,"artist"=>"Pianobar is starting up...", "title"=>"Hello There", "artURL"=>"inc/pandora.png", "startup"=>true));
 }
 elseif ($_GET['control']) 
 {
@@ -26,12 +24,12 @@ elseif ($_GET['control'])
 		if ($c == "q")
 		{
 			file_put_contents("msg", "Shutdown");
-			unlink("curSong");
+			unlink("curSong.json");
 			unlink("stationList");
 			foreach (glob("albumart/*.jpg") as $delete) unlink($delete);
 		}
 		if ($c[0] == "s") file_put_contents("msg", "Changing stations");
-		$return = "ok";
+		$return = json_encode(array("response"=>"ok"));
 	}
 }
 elseif ($_GET['station'] != null)
@@ -56,36 +54,24 @@ echo $return;
 function getSong() {
 	$return = "";
 	
-	$songInfo = file_get_contents("curSong");
-	$arraySong = explode("|", $songInfo);
-	$title = $arraySong[0];
-	$artist = $arraySong[1];
-	$album = $arraySong[2];
-	$coverart = $arraySong[3];
+	$songInfo = json_decode(file_get_contents("curSong.json"), true);
+	$coverart = $songInfo["artURL"];
 	if ($coverart)
 	{
-		$temp = "albumart/".md5($album).".jpg";
+		$temp = "albumart/".md5($songInfo["album"]).".jpg";
 		if (!file_exists($temp)) file_put_contents($temp, file_get_contents($coverart));
 		$coverart = $temp;
 	}
 	else $coverart = "inc/pandora.png";
-	$love = $arraySong[4];
-	
-	if ($love==1) $return .= "<img src=inc/love.png class=love width=20 />";
-	$return .= "
-	<img src=$coverart class=albumart alt=\"Artwork for $album\" />
-	<h1>$title</h1>
-	<h2>$artist</h2>
-	<h2 class=album>$album</h2>
-	<p class=details>EMPTY</p>";
-	return $return;
+	$songInfo = array_replace($songInfo, array("artURL"=>$coverart));
+	return json_encode($songInfo);
 }
 function getDetails($url = NULL)
 {
 	if (!$url)
 	{
-		$arraySong = explode("|", file_get_contents("curSong"));
-		$url = $arraySong[5];
+		$songInfo = json_decode(file_get_contents("curSong.json"));
+		$url = $songInfo->explainURL;
 	}
 	$data = file_get_contents($url);
 	#preg_match("#features of this track(.*?)\<p\>These are just a#is", $data, $matches); // uncomment this if explanations act funny
@@ -101,6 +87,6 @@ function getDetails($url = NULL)
 	}
 	else $ending = "many other similarites as identified by the Music Genome Project";
 	$data = implode(", ", array_map('trim', $data));
-	return "We're playing this track because it features $data, and $ending.";
+	return json_encode(array("explanation"=>"We're playing this track because it features $data, and $ending."));
 }
 ?>

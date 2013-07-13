@@ -1,12 +1,12 @@
 body {background-color: #000; color: #fff; font-family: Arial, sans-serif;}
 
-#content {width: 80%; position:absolute; top:50%; left:50%; height:330px; width:1000px; margin-top:-165px; margin-left:-500px; font-weight: bold;}
+#content, #stationList, #msg {width: 80%; position:absolute; top:50%; left:50%; height:330px; width:1000px; margin-top:-165px; margin-left:-500px; font-weight: bold;}
 #content h1 {font-size:4em;}
-#content h1.msg {font-size:6em; text-align:center;}
+#msg h1 {font-size:6em; text-align:center;}
 #content h2 {font-size:2em; margin:0}
 #content h2.album {font-style: italic;}
 #content img.albumart {width:300px; height:300px; float:left; padding-right:10px; margin-bottom:100px}
-#content img.love {float:right;}
+#content img.love {float:right; width: 20px;}
 #content p.details {display:none;}
 
 #controls {float:right; text-align: right;}
