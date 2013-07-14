@@ -44,9 +44,9 @@ elif event == "songban":
 elif event == "songshelf":
 	open(www + "msg", "w").write("Tired")
 elif event == "usergetstations":				# Code thanks to @officerNordBerg on GitHub
-        stationCount = int(fields["stationCount"])
+       stationCount = int(fields["stationCount"])
 	stations = ""
 	for i in range(0, stationCount):
-		stations += "%s="%i + fields["station%s"%i] + "|" 
+		stations += "%s="%i + fields["station%s"%i] + "|"
 	stations = stations[0:len(stations) - 1]
 	open(www + "stationList", "w").write(stations)
