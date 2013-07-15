@@ -1,28 +1,21 @@
-<?php                                                                                                     
+<?php
+$pidoraurl = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+$pidorabase = str_replace("mobile.php", "", $pidoraurl);
 if ($_GET['p'])
 {
 	file_put_contents("ctl", "{$_GET['p']}\n");
 	header("Location: mobile.php");
 }
-$songInfo = file_get_contents("curSong");
-$arraySong = explode("|", $songInfo);
-$title = $arraySong[0];
-$artist = $arraySong[1];
-$album = $arraySong[2];
-$coverart = $arraySong[3];
-$songlink = $arraySong[5];
-$pidoraurl = "http://" . $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-if ($coverart)
-{
-	$temp = "albumart/".md5($album).".jpg";
-	if (!file_exists($temp)) file_put_contents($temp, file_get_contents($coverart));
-	$coverart = $temp;
-}   
-else $coverart = "imgs/pandora.png";
+$songInfo = json_decode(file_get_contents("$pidorabase/api.php"));
 
-$love = $arraySong[4];
+$title = $songInfo->title;
+$artist = $songInfo->artist;
+$album = $songInfo->album;
+$coverart = $songInfo->artURL;
+$songlink = $songInfo->explainURL;
+$love = $songInfo->loved;
 
-if ($love) $heading .= " <3";
+if ($love) $title .= " <3";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-GB">
