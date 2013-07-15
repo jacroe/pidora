@@ -36,6 +36,10 @@ $(document).ready(function()
 				});
 				setMousetraps();
 			}
+			else if(newDataObj.loved && !($('#content .love').is(':visible')))
+			{
+				$('#content .love').show();
+			}
 		});
 	}, 3000);
 });
