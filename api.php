@@ -77,7 +77,7 @@ function getDetails($url = NULL)
 	#preg_match("#features of this track(.*?)\<p\>These are just a#is", $data, $matches); // uncomment this if explanations act funny
 	preg_match("#features of this track(.*?)\</div\>#is", $data, $matches);
 	$strip = array("Features of This Track</h2>", "<div style=\"display: none;\">", "</div>", "<p>These are just a");
-	if (!$matches[0]) return "We were unable to get the song's explanation. Sorry about that.";
+	if (!$matches[0]) return json_encode(array("explanation"=>"We were unable to get the song's explanation. Sorry about that."));
 	$data = explode("<br>", str_replace($strip, "", $matches[0]));
 	unset($data[count($data)-1]);
 	if (trim($data[count($data)-1]) == "many other comedic similarities")

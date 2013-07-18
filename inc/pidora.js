@@ -57,7 +57,7 @@ function updateSong(data)
 		$('#content .love').show();
 	else
 		$('#content .love').hide();
-	$('#content .albumart').attr("src", data.artURL);
+	$('#content .albumart').attr("src", data.artURL).attr("alt", data.album + " by " + data.artist);
 };
 
 function explainSong()

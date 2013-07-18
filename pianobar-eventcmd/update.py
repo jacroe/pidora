@@ -10,7 +10,7 @@ def process(command, new = False):
 def buildJSON(title, artist, album, artURL, loved, explainURL):
 	data = '{"title": "' + title + '","artist": "' + artist + '","album": "' + album + '","artURL": "' + artURL + '","loved": ' + str(bool(loved)).lower() + ',"explainURL": "' + explainURL + '"}'
 	return json.dumps(json.loads(data), indent=2)
-www = "/home/jacob/www/pianobar/"
+www = "/home/jacob/www/pidora/"
 
 event = sys.argv[1]
 lines = sys.stdin.readlines()

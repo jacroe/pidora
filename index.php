@@ -20,11 +20,11 @@
 <a onclick="stationSetup();">Station</a>
 </div>
 
-<div id="content">
+<div id="content" style="display:none">
 <img src=inc/love.png class=love style="display:none" />
-<img src=inc/pandora.png class=albumart alt="Pandora logo" />
-<h1>Hello There</h1>
-<h2>Pianobar is starting up...</h2>
+<img src="" class=albumart alt="Pandora logo" />
+<h1></h1>
+<h2></h2>
 <h2 class=album></h2>
 <p class=details>EMPTY</p>
 </div>
