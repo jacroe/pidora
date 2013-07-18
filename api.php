@@ -9,9 +9,9 @@ elseif (!file_exists("curSong.json"))
 {
 	$return = json_encode(array("album"=>"","loved"=>false,"artist"=>"Pianobar is starting up...", "title"=>"Hello There", "artURL"=>"inc/pandora.png", "startup"=>true));
 }
-elseif ($_GET['control']) 
+elseif ($_GET['command'])
 {
-	$c = $_GET['control'];
+	$c = $_GET['command'];
 	if ($c == "e")
 	{
 		$return = getDetails();
@@ -38,14 +38,14 @@ elseif ($_GET['station'] != null)
 	$max = $i+10;
 	$arrayStations = explode("|", file_get_contents("stationList"));
 	
-	if ($i > 0) $return = "<a onclick=getStations(--index);>B - Back</a><br />\n";
+	if ($i > 0) $return = "<a onclick=getStations(".--$_GET['station'].");>B - Back</a><br />\n";
 	for($i; ($i < $max) && ($i < count($arrayStations) ); $i++)
 	{
 		$stationRaw = $arrayStations[$i];
 		$station = explode("=", $stationRaw);
-		$return .= "<a onclick=control('s".$station[0]."');>".substr($station[0], -1)." - ".$station[1]."</a><br />\n";
+		$return .= "<a onclick=sendCommand('s".$station[0]."');>".substr($station[0], -1)." - ".$station[1]."</a><br />\n";
 	}
-	if (count($arrayStations) > $max) $return .= "<a onclick=getStations(++index);>N - Next</a><br />";
+	if (count($arrayStations) > $max) $return .= "<a onclick=getStations(".++$_GET['station'].");>N - Next</a><br />";
 }
 else $return = getSong();
 

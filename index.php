@@ -11,12 +11,12 @@
 <body>
 
 <div id="controls">
-<a onclick="control('p');">Pause</a>
-<a onclick="control('n');">Next</a>
-<a onclick="control('+');">Love</a>
-<a onclick="control('-');">Ban</a>
-<a onclick="control('t');">Tired</a>
-<a onclick="explain();">Explain</a>
+<a onclick="sendCommand('p');">Pause</a>
+<a onclick="sendCommand('n');">Next</a>
+<a onclick="sendCommand('+');">Love</a>
+<a onclick="sendCommand('-');">Ban</a>
+<a onclick="sendCommand('t');">Tired</a>
+<a onclick="explainSong();">Explain</a>
 <a onclick="stationSetup();">Station</a>
 </div>
 

@@ -66,7 +66,7 @@ function explainSong()
 	if (details == "EMPTY")
 	{
 		$('p.details').html("Grabbing explanation...").fadeToggle('slow')
-		$.get("api.php", {control:'e'}).done(function(explainPlain)
+		$.get("api.php", {command:'e'}).done(function(explainPlain)
 		{
 			explain = JSON.parse(explainPlain);
 			$('p.details').fadeOut('slow', function()
@@ -119,7 +119,7 @@ function getStations(index)
 
 function sendCommand(action)
 {
-	$.get("api.php", {control:action}); // TODO - Rename "control" to "command"
+	$.get("api.php", {command:action});
 };
 
 function setMousetraps()
