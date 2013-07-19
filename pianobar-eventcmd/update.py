@@ -8,7 +8,7 @@ def process(command, new = False):
 	else:
 		with open(os.devnull, "w") as fnull: result = subprocess.call(command, stdout = fnull, stderr = fnull)
 def buildJSON(title, artist, album, artURL, loved, explainURL):
-	data = '{"title": "' + title + '","artist": "' + artist + '","album": "' + album + '","artURL": "' + artURL + '","loved": ' + str(bool(loved)).lower() + ',"explainURL": "' + explainURL + '"}'
+	data = '{"title": ' + json.dumps(title) + ',"artist": ' + json.dumps(artist) + ',"album": ' + json.dumps(album) + ',"artURL": ' + json.dumps(artURL) + ',"loved": ' + str(bool(loved)).lower() + ',"explainURL": ' + json.dumps(explainURL) + '}'
 	return json.dumps(json.loads(data), indent=2)
 www = "/home/jacob/www/pidora/"
 
