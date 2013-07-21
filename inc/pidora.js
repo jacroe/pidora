@@ -65,7 +65,7 @@ function explainSong()
 	details = $('p.details').html();
 	if (details == "EMPTY")
 	{
-		$('p.details').html("Grabbing explanation...").fadeToggle('slow')
+		$('p.details').html("Grabbing explanation...").fadeToggle('slow');
 		$.get("api.php", {command:'e'}).done(function(explainPlain)
 		{
 			explain = JSON.parse(explainPlain);

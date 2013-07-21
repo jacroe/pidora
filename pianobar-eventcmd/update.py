@@ -7,8 +7,8 @@ def process(command, new = False):
 		with open(os.devnull, "w") as fnull: result = subprocess.Popen(command, stdout = fnull, stderr = fnull)
 	else:
 		with open(os.devnull, "w") as fnull: result = subprocess.call(command, stdout = fnull, stderr = fnull)
-def buildJSON(title, artist, album, artURL, loved, explainURL):
-	data = '{"title": ' + json.dumps(title) + ',"artist": ' + json.dumps(artist) + ',"album": ' + json.dumps(album) + ',"artURL": ' + json.dumps(artURL) + ',"loved": ' + str(bool(loved)).lower() + ',"explainURL": ' + json.dumps(explainURL) + '}'
+def buildJSON(title, artist, album, artURL, loved, explainURL, songDuration = 0, songPlayed = 0):
+	data = '{"title": ' + json.dumps(title) + ',"artist": ' + json.dumps(artist) + ',"album": ' + json.dumps(album) + ',"artURL": ' + json.dumps(artURL) + ',"loved": ' + str(bool(loved)).lower() + ',"explainURL": ' + json.dumps(explainURL) + ', "songDuration": ' + str(songDuration) + ', "songPlayed": ' + str(songPlayed) + '}'
 	return json.dumps(json.loads(data), indent=2)
 www = "/home/jacob/www/pidora/"
 
@@ -43,7 +43,7 @@ elif event == "songban":
 	open(www + "msg", "w").write("Banned")
 elif event == "songshelf":
 	open(www + "msg", "w").write("Tired")
-elif event == "usergetstations":				# Code thanks to @officerNordBerg on GitHub
+elif event == "usergetstations" or event == "stationcreate" or event == "stationdelete" or event == "stationrename":				# Code thanks to @officerNordBerg on GitHub
 	stationCount = int(fields["stationCount"])
 	stations = ""
 	for i in range(0, stationCount):
