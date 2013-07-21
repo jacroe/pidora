@@ -22,6 +22,8 @@ album = fields["album"]
 coverArt = fields["coverArt"]
 rating = int(fields["rating"])
 detailUrl = fields["detailUrl"]
+songDuration = fields["songDuration"]
+songPlayed = fields["songPlayed"]
 
 if event == "songstart":
 	open(www + "curSong.json", "w").write(buildJSON(title, artist, album, coverArt, rating, detailUrl))
