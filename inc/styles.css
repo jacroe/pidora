@@ -1,6 +1,6 @@
 body {background-color: #000; color: #fff; font-family: Arial, sans-serif;}
 
-#content, #stationList, #msg {width: 80%; position:absolute; top:50%; left:50%; height:330px; width:1000px; margin-top:-165px; margin-left:-500px; font-weight: bold;}
+#content, #stationList, #newStation, #msg {width: 80%; position:absolute; top:50%; left:50%; height:330px; width:1000px; margin-top:-165px; margin-left:-500px; font-weight: bold;}
 #content h1 {font-size:4em;}
 #msg h1 {font-size:6em; text-align:center;}
 #content h2 {font-size:2em; margin:0}

@@ -10,40 +10,37 @@ $(document).ready(function()
 			{
 				if($('#msg').is(':visible'))
 				{
-					clearScreen(function()
-					{
-						$('#content').fadeIn('slow');
-					});
+					clearScreen('#content');
 				}
 				newSongData = newData;
 				if(JSON.stringify(oldSongData) !== JSON.stringify(newSongData))
 				{
 					oldSongData = newSongData;
-					clearScreen(function()
+					clearScreen('#content', function()
 					{
 						updateSong(newSongData);
-						$('#content').fadeIn('slow');
 					});
 					setMousetraps();
 				}
 			}
 			else if(newData.msg)
 			{
-				clearScreen(function()
+				clearScreen('#msg', function()
 				{
 					$('#msg h1').html(newData.msg);
-					$('#msg').fadeIn('slow');
 				});
 			}
 		});
 	}, 3000);
 });
 
-function clearScreen(doNext)
+function clearScreen(showNext, doNext)
 {
-	$('#content, #msg, #stationList').fadeOut('slow').promise().done(function()
+	$('#content, #msg, #newStation, #stationList').fadeOut('slow').promise().done(function()
 	{
-		doNext();
+		if(doNext)
+			doNext();
+		$(showNext).fadeIn('slow');
 	});
 }
 
@@ -98,9 +95,8 @@ function stationSetup()
 	Mousetrap.bind('b', function() { getStations(--index); });
 	Mousetrap.bind('esc', function()
 	{
-		clearScreen(function()
+		clearScreen('#content', function()
 		{
-			$('#content').fadeIn('slow');
 			setMousetraps();
 		});
 	});
@@ -110,10 +106,34 @@ function getStations(index)
 {
 	$.get("api.php", {station:index}).done(function(stationList)
 	{
-		clearScreen(function()
+		clearScreen('#stationList', function()
 		{
-			$('#stationList').html(stationList).fadeIn('slow');
+			$('#stationList').html(stationList);
 		});
+	});
+}
+
+function newStationSetup()
+{
+	Mousetrap.reset();
+	Mousetrap.bind('s', function() { newStation('s'); });
+	Mousetrap.bind('a', function() { newStation('a'); });
+	Mousetrap.bind('esc', function()
+	{
+		clearScreen('#content', function()
+		{
+			setMousetraps();
+		});
+	});
+	clearScreen('#newStation');
+}
+
+function newStation(type)
+{
+	sendCommand('v' + type);
+	clearScreen('#content', function()
+	{
+		setMousetraps();
 	});
 }
 
@@ -133,4 +153,5 @@ function setMousetraps()
 	Mousetrap.bind('q', function() { sendCommand('q'); });
 	Mousetrap.bind('e', function() { explainSong(); });
 	Mousetrap.bind('s', function() { stationSetup(); });
+	Mousetrap.bind('c', function() { newStationSetup(); });
 }

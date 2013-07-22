@@ -32,6 +32,12 @@
 <div id="stationList" style="display:none">
 </div>
 
+<div id="newStation" style="display:none">
+Create new station from:<br />
+[S]ong, or
+[A]rtist
+</div>
+
 <div id="msg" style="display:none">
 <h1></h1>
 </div>

@@ -29,6 +29,7 @@ elseif ($_GET['command'])
 			foreach (glob("albumart/*.jpg") as $delete) unlink($delete);
 		}
 		if ($c[0] == "s") file_put_contents("msg", "Changing stations");
+		if ($c[0] == "v") file_put_contents("msg", "Station created");
 		$return = json_encode(array("response"=>"ok"));
 	}
 }
