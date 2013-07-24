@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import sys, csv, subprocess, os, json
+from time import gmtime, strftime
 
 def process(command, new = False):
 	if new:
@@ -31,8 +32,12 @@ elif event == "songfinish":
 	import feedparser, urllib
 	feed = feedparser.parse("http://www.npr.org/rss/podcast.php?id=500005")
 	if not os.path.lexists(www + "lastNews"): open(www + "lastNews", "w").write("-1")
-	time = int(open(www + "lastNews", "r").read())
-	if feed.entries[0].updated_parsed.tm_hour != time:
+	lastNews = int(open(www + "lastNews", "r").read())
+	currNews = feed.entries[0].updated_parsed.tm_hour
+	currHour = strftime("%H", gmtime())
+	currMin = strftime("%M", gmtime())
+	#if feed.entries[0].updated_parsed.tm_hour != time and feed.entries[0].updated_parsed.tm_hour != time-1:
+	if currNews != lastNews and currNews == currHour and int(currMin) < 30:
 		open(www + "ctl", "w").write("p")
 		open(www + "lastNews", "w").write(str(feed.entries[0].updated_parsed.tm_hour))
 		open(www + "curSong.json", "w").write(buildJSON(feed.entries[0].title, feed.feed.title, feed.feed.title, "http://media.npr.org/images/podcasts/2013/primary/hourly_news_summary.png", 0, "null"))
