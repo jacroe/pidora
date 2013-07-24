@@ -18,6 +18,7 @@
 <a onclick="sendCommand('t');">Tired</a>
 <a onclick="explainSong();">Explain</a>
 <a onclick="stationSetup();">Station</a>
+<a onclick="newStationSetup();">Create</a>
 </div>
 
 <div id="content" style="display:none">
@@ -34,8 +35,7 @@
 
 <div id="newStation" style="display:none">
 Create new station from:<br />
-[S]ong, or
-[A]rtist
+<a onclick="newStation('s');">[S]ong</a> or <a onclick="newStation('a');">[A]rtist</a>
 </div>
 
 <div id="msg" style="display:none">
