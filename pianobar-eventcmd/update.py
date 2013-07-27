@@ -36,13 +36,10 @@ elif event == "songfinish":
 	currNews = feed.entries[0].updated_parsed.tm_hour
 	currHour = strftime("%H", gmtime())
 	currMin = strftime("%M", gmtime())
-	#if feed.entries[0].updated_parsed.tm_hour != time and feed.entries[0].updated_parsed.tm_hour != time-1:
 	if currNews != lastNews and currNews == int(currHour) and int(currMin) < 30:
-		open(www + "ctl", "w").write("p")
 		open(www + "lastNews", "w").write(str(feed.entries[0].updated_parsed.tm_hour))
-		open(www + "curSong.json", "w").write(buildJSON(feed.entries[0].title, feed.feed.title, feed.feed.title, "http://media.npr.org/images/podcasts/2013/primary/hourly_news_summary.png", 0, "null"))
+		open(www + "curSong.json", "w").write(buildJSON(feed.entries[0].title, feed.feed.title, feed.feed.title, "http://media.npr.org/images/podcasts/2013/primary/hourly_news_summary.png", 0, None))
 		process(["mpg123", feed.entries[0].id])
-		open(www + "ctl", "w").write("p")
 elif event == "songlove":
 	open(www + "curSong.json", "w").write(buildJSON(title, artist, album, coverArt, 1, detailUrl))
 	open(www + "msg", "w").write("Loved")
