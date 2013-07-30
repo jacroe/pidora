@@ -2,28 +2,28 @@
 <html lang="en">
 <head>
 <title>Pidora</title>
-<link rel=stylesheet href=inc/styles.css />
-<link rel="icon" type="image/png" href="favicon.ico">
+<link rel=stylesheet href=css/styles.css />
+<link rel="icon" type="image/png" href="imgs/favicon.ico">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="http://cdn.craig.is/js/mousetrap/mousetrap.min.js?88c23"></script>
-<script src="./inc/pidora.js"></script>
+<script src="js/pidora.js"></script>
 </head>
 <body>
 
 <div id="controls">
-<a onclick="sendCommand('p');">Pause</a>
-<a onclick="sendCommand('n');">Next</a>
-<a onclick="sendCommand('+');">Love</a>
-<a onclick="sendCommand('-');">Ban</a>
-<a onclick="sendCommand('t');">Tired</a>
+<a onclick="sendCommand('pause');">Pause</a>
+<a onclick="sendCommand('next');">Next</a>
+<a onclick="sendCommand('love');">Love</a>
+<a onclick="sendCommand('ban');">Ban</a>
+<a onclick="sendCommand('tired');">Tired</a>
 <a onclick="explainSong();">Explain</a>
 <a onclick="stationSetup();">Station</a>
 <a onclick="newStationSetup();">Create</a>
 </div>
 
 <div id="content" style="display:none">
-<img src=inc/love.png class=love style="display:none" />
-<img src="" class=albumart alt="Pandora logo" />
+<img src=imgs/love.png class=love style="display:none" alt="Loved" />
+<img src=imgs/pandora.png class=albumart alt="Pandora logo" />
 <h1></h1>
 <h2></h2>
 <h2 class=album></h2>
@@ -35,7 +35,7 @@
 
 <div id="newStation" style="display:none">
 Create new station from:<br />
-<a onclick="newStation('s');">[S]ong</a> or <a onclick="newStation('a');">[A]rtist</a>
+<a onclick="newStation('song');">[S]ong</a> or <a onclick="newStation('artist');">[A]rtist</a>
 </div>
 
 <div id="msg" style="display:none">
