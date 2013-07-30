@@ -1,6 +1,11 @@
 Pidora
 ======
 
+**Danger, Will Robinson!** Please note this is the README for the pre-release. You can view the [old README](https://github.com/jacroe/pidora/blob/48a886c8b786301cd4f8912cd0f3cc0616d4052b/README.md) and download the [lastest stable release](https://github.com/jacroe/pidora/releases/tag/v0.1.1).
+
+Installation
+------------
+
 *This is a quick and dirty README. Use at your own risk*
 
 1.	Install pianobar, mpg123, and python-feedparser and their dependencies.
@@ -9,6 +14,9 @@ Pidora
 4.	Edit your pianobar config file by adding the `fifo` and `event_command` variables and their location. The `event_command` should point to the `bar-update.py` Python script. You can use this [sample config file](https://gist.github.com/jacroe/cd1850ad6a1fcf4a72e3) as a guide.
 5.  Run `python hello.py`. Pidora will begin running. 
 6.	Run pianobar and open Midori to the location of pidora. By default, this is http://localhost:8080. You should see the song information and the album art. This should fade out with the next song. Try Loving, Banning, and Shelving a song. The appropriate message should fade in then out again.
+
+Configuration
+-------------
 
 That's it for the installation. Now let's configure our machine to automatically launch the web browser and pianobar.
 
