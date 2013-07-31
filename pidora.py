@@ -96,3 +96,53 @@ def CreateStation(type, meta):
 			return False
 	else:
 		return False
+
+def api(json=None):
+	if json is None or json == "":
+		return libjson.dumps(dict(method="NoJSON", id=None, response="bad"), indent=2)
+	json = libjson.loads(json)
+	
+	if json["method"] == "GetSongInfo":
+		if os.path.exists(current_dir + "msg"):
+			msg = open(current_dir + "msg").read()
+			os.remove(current_dir + "msg")
+		else:
+			msg = None
+		songData = getSongData()
+		return libjson.dumps(dict(method="GetSongInfo", msg=msg, id=json["id"], song=songData), indent=2)
+	elif json["method"] == "GetExplanation":
+		return libjson.dumps(dict(method="GetExplanation", id=json["id"], explanation=getExplanation()), indent=2)
+	elif json["method"] == "GetStationList":
+		return libjson.dumps(dict(method="GetStationList", id=json["id"], stationList=getStations(json["index"])), indent=2)
+	elif json["method"] == "Control":
+		if Control(json["command"]):
+			return libjson.dumps(dict(method="Control", id=json["id"], command=json["command"], response="ok"), indent=2)
+		else:
+			return libjson.dumps(dict(method="Control", id=json["id"], command=json["command"], response="bad"), indent=2)
+	elif json["method"] == "CreateStation":
+		if json["quick"]:
+			if CreateStation("quick", json["quick"]):
+				return libjson.dumps(dict(method="CreateStation", id=json["id"], quick=json["quick"], response="ok"), indent=2)
+			else:
+				return libjson.dumps(dict(method="CreateStation", id=json["id"], quick=json["quick"], response="bad"), indent=2)
+		else:
+			return libjson.dumps(dict(method="CreateStation", id=json["id"], response="bad"), indent=2)
+	elif json["method"] == "ChangeStation":
+		if json["stationID"]:
+			if ChangeStation(json["stationID"]):
+				return libjson.dumps(dict(method="ChangeStation", id=json["id"], stationID=json["stationID"], response="ok"), indent=2)
+			else:
+				return libjson.dumps(dict(method="ChangeStation", id=json["id"], stationID=json["stationID"], response="bad"), indent=2)
+		else:
+			return libjson.dumps(dict(method="ChangeStation", id=json["id"], response="bad"), indent=2)
+	elif json["method"] == "Pianobar.Start":
+		process(["pianobar"], True)
+		return libjson.dumps(dict(method="Pianobar.Start", id=json["id"], response="ok"), indent=2)
+	elif json["method"] == "Pianobar.Quit":
+		open(current_dir + "ctl", "w").write("q")
+		writeMsg("Shutdown")
+		os.remove(current_dir + "stationList")
+		os.remove(current_dir + "curSong.json")
+		return libjson.dumps(dict(method="Pianobar.Quit", id=json["id"], response="ok"), indent=2)
+	else:
+		return libjson.dumps(dict(method="NoValidMethod", id=json["id"], response="bad"), indent=2)
