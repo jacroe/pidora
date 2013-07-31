@@ -63,7 +63,7 @@ def getStations(index):
 	return returnData
 
 def Control(command):
-	commands = dict(pause=" ", next="n", love="+", ban="-", tired="t")
+	commands = dict(pause="p", next="n", love="+", ban="-", tired="t")
 	try:
 		open(current_dir + "ctl", "w").write(commands[command])
 		if command == "next":

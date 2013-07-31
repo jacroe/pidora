@@ -12,8 +12,9 @@ Installation
 2.	Configure pianobar until you are able to run <tt>pianobar</tt> from the command line without any interaction. The man file is particularly helpful. If you get a "TLS Handshake failed" error, run [this command](https://gist.github.com/4200610). It will append the correct TLS fingerprint to your config file.
 3.	Create a FIFO file by running `mkfifo ctl` in your pidora directory. 
 4.	Edit your pianobar config file by adding the `fifo` and `event_command` variables and their location. The `event_command` should point to the `bar-update.py` Python script. You can use this [sample config file](https://gist.github.com/jacroe/cd1850ad6a1fcf4a72e3) as a guide.
-5.  Run `python hello.py`. Pidora will begin running. 
-6.	Run pianobar and open Midori to the location of pidora. By default, this is http://localhost:8080. You should see the song information and the album art. This should fade out with the next song. Try Loving, Banning, and Shelving a song. The appropriate message should fade in then out again.
+5.	Make sure `tools.staticdir.root` in `cpy.conf` points to the correct Pidora directory. There should **not** be a trailing slash.
+6.	Run `python hello.py`. Pidora will begin running.
+7.	Run pianobar and open Midori to the location of pidora. By default, this is http://localhost:8080. You should see the song information and the album art. This should fade out with the next song. Try Loving, Banning, and Shelving a song. The appropriate message should fade in then out again.
 
 Configuration
 -------------
