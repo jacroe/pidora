@@ -13,7 +13,7 @@ password = $password" > ~/.config/pianobar/config
 fingerprint=`openssl s_client -connect tuner.pandora.com:443 < /dev/null 2> /dev/null | openssl x509 -noout -fingerprint | tr -d ':' | cut -d'=' -f2` && echo tls_fingerprint = $fingerprint >> ~/.config/pianobar/config
 echo
 echo "We think we set up pianobar. We'll test it now. It should log in and ask you to select a station."
-echo "After selecting the station, pianobar will print the station's name and a long ID number. Copy that number to the clipboard."
+echo "After selecting the station, pianobar will print the station's name and a long ID number. This will be the default station. Copy that number to the clipboard."
 echo "Press q to quit at any time."
 read -n1 -r -p "Press any key to continue..."
 echo
@@ -53,6 +53,6 @@ echo "rm $HOME/pidora/curSong.json
 @midori -a \"http://localhost:8080/\" -e Fullscreen
 @python $HOME/pidora/hello.py
 @pianobar" | sudo tee -a /etc/xdg/lxsession/LXDE/autostart
-echo
+clear
 echo "Done!"
 echo "Reboot your Pi and enjoy!"
