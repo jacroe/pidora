@@ -120,6 +120,7 @@ def api(json=None):
 		else:
 			return libjson.dumps(dict(method="Control", id=json["id"], command=json["command"], response="bad"), indent=2)
 	elif json["method"] == "CreateStation":
+		return libjson.dumps(dict(method="CreateStation", id=json["id"], response="disabled - See issue #23"), indent=2) # see issue#23
 		if json["quick"]:
 			if CreateStation("quick", json["quick"]):
 				return libjson.dumps(dict(method="CreateStation", id=json["id"], quick=json["quick"], response="ok"), indent=2)

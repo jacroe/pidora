@@ -174,5 +174,5 @@ function setMousetraps()
 	Mousetrap.bind('q', function() { pianobarQuit(); });
 	Mousetrap.bind('e', function() { explainSong(); });
 	Mousetrap.bind('s', function() { stationSetup(); });
-	Mousetrap.bind('c', function() { newStationSetup(); });
+	//Mousetrap.bind('c', function() { newStationSetup(); }); See issue#23
 }
