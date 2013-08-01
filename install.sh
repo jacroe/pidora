@@ -49,9 +49,9 @@ echo "You can stop the server at any time by pressing Ctrl+C."
 python pidora/hello.py
 clear
 echo "Configuring the startup script."
-echo "rm /home/user/pidoraLocation/curSong
+echo "rm $HOME/pidora/curSong.json
 @midori -a \"http://localhost:8080/\" -e Fullscreen
-@python pidora/hello.py
+@python $HOME/pidora/hello.py
 @pianobar" | sudo tee -a /etc/xdg/lxsession/LXDE/autostart
 echo
 echo "Done!"
