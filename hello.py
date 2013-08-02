@@ -16,6 +16,16 @@ class Pidora():
 		return pidora.api(json)
 
 	@cherrypy.expose
+	def start(self):
+		pidora.api('{"method":"Pianobar.Start", "id":1}')
+		return "<html><head><title>Pianobar has started</title></head><body><p>Pianobar is starting</p></body></html>"
+
+	@cherrypy.expose
+	def quit(self):
+		pidora.api('{"method":"Pianobar.Quit", "id":1}')
+		return "<html><head><title>Pianobar has quit</title></head><body><p>Pianobar has quit</p></body></html>"
+
+	@cherrypy.expose
 	def mobile(self):
 		songData = pidora.getSongData()
 		return template.mobile(songData)
