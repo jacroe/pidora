@@ -4,6 +4,9 @@ cherrypy.engine.autoreload.unsubscribe()
 class Pidora():
 
 	data = dict(pianobar=None)
+	
+	#Comment the line below to cancel autostart
+	data['pianobar'] = pidora.process(['pianobar'], True)
 
 	@cherrypy.expose
 	def index(self):
