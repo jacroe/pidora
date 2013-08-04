@@ -51,8 +51,7 @@ clear
 echo "Configuring the startup script."
 echo "rm $HOME/pidora/curSong.json
 @midori -a \"http://localhost:8080/\" -e Fullscreen
-@python $HOME/pidora/hello.py
-@pianobar" | sudo tee -a /etc/xdg/lxsession/LXDE/autostart
+@python $HOME/pidora/hello.py" | sudo tee -a /etc/xdg/lxsession/LXDE/autostart
 clear
 echo "Done!"
 echo "Reboot your Pi and enjoy!"

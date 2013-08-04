@@ -1,9 +1,9 @@
 import cherrypy, os, json as libjson, pidora, template
-#from cherrypy.process.plugins import Daemonizer
-#Daemonizer(cherrypy.engine).subscribe()
 current_dir = os.path.dirname(os.path.abspath(__file__)) + "/"
+cherrypy.engine.autoreload.unsubscribe()
 class Pidora():
 
+	data = dict(pianobar=None)
 
 	@cherrypy.expose
 	def index(self):
@@ -13,17 +13,24 @@ class Pidora():
 	@cherrypy.expose
 	def api(self, json=None):
 		cherrypy.response.headers['Content-Type'] = 'application/json'
-		return pidora.api(json)
+		reply = pidora.api(self.data, json)
+		return reply["json"]
 
 	@cherrypy.expose
 	def start(self):
-		pidora.api('{"method":"Pianobar.Start", "id":1}')
-		return "<html><head><title>Pianobar has started</title></head><body><p>Pianobar is starting</p></body></html>"
+		if self.data['pianobar'] is None:
+			pidora.api(self.data, '{"method":"Pianobar.Start", "id":1}')
+			return "<html><head><title>Pianobar has started</title></head><body><p>Pianobar is starting</p></body></html>"
+		else:
+			return "<html><head><title>Pianobar is already running</title></head><body><p>Pianobar is already running</p></body></html>"
 
 	@cherrypy.expose
 	def quit(self):
-		pidora.api('{"method":"Pianobar.Quit", "id":1}')
-		return "<html><head><title>Pianobar has quit</title></head><body><p>Pianobar has quit</p></body></html>"
+		if self.data['pianobar']:
+			pidora.api(self.data, '{"method":"Pianobar.Quit", "id":1}')
+			return "<html><head><title>Pianobar has quit</title></head><body><p>Pianobar has quit</p></body></html>"
+		else:
+			return "<html><head><title>Pianobar is not running</title></head><body><p>Pianobar is not running</p></body></html>"
 
 	@cherrypy.expose
 	def mobile(self):
@@ -31,7 +38,4 @@ class Pidora():
 		return template.mobile(songData)
 	m = mobile
 
-#cherrypy.tree.mount(Pidora(), config=current_dir + "cpy.conf")
-#cherrypy.engine.start()
-#cherrypy.engine.block()
 cherrypy.quickstart(Pidora(), config=current_dir + "cpy.conf")

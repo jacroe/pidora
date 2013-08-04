@@ -13,7 +13,7 @@ Installation
 Updates
 -------
 
-Updates are easy thinks to Git. Simply `cd ~/pidora` and then `git pull`. If Pidora is currently running, it'll automatically restart. Please note, updates may contain new bugs. Use at your own risk. If your installation does become unusuable, may I suggest our [releases](https://github.com/jacroe/pidora/releases)?
+Updates are easy thinks to Git. Simply `cd ~/pidora` and then `git pull`. If Pidora is currently running, you'll need to kill pianobar and restart the server. This can easily be done by simply restarting the Pi. Please note, updates may contain new bugs. Use at your own risk. If your installation does become unusuable, may I suggest our [releases](https://github.com/jacroe/pidora/releases)?
 
 
 Contact me

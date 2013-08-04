@@ -54,19 +54,38 @@ function clearScreen(showNext, doNext)
 
 function updateSong(data)
 {
-	$('#content h1').html(data.title);
-	$('#content h2').html(data.artist);
-	$('#content .album').html(data.album);
-	$('#content .details').html("EMPTY").hide();
-	if(data.loved)
-		$('#content .love').show();
-	else
+	if(data.startup == false)
+	{
+		$('#content h1').html("Want Music?");
+		$('#content h2').html("Scan the QR Code");
+		$('#content .album').html("");
 		$('#content .love').hide();
-	$('#content .albumart').attr("alt", data.album + " by " + data.artist);
-	if(data.artURL)
-		$('#content .albumart').attr("src", data.artURL);
-	else
+		$('#content .albumart').attr("src", "https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=http%3A//" + location.host + "/start&chld=H|0");
+	}
+	else if(data.startup == true)
+	{
+		$('#content h1').html("Hello There");
+		$('#content h2').html("Pianobar is starting up...");
+		$('#content .album').html("");
+		$('#content .love').hide();
 		$('#content .albumart').attr("src", "imgs/pandora.png");
+	}
+	else
+	{
+		$('#content h1').html(data.title);
+		$('#content h2').html(data.artist);
+		$('#content .album').html(data.album);
+		$('#content .details').html("EMPTY").hide();
+		if(data.loved)
+			$('#content .love').show();
+		else
+			$('#content .love').hide();
+		$('#content .albumart').attr("alt", data.album + " by " + data.artist);
+		if(data.artURL)
+			$('#content .albumart').attr("src", data.artURL);
+		else
+			$('#content .albumart').attr("src", "imgs/pandora.png");
+	}
 };
 
 function explainSong()
