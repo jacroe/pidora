@@ -9,7 +9,7 @@ def process(command, new = False):
 		with open(os.devnull, "w") as fnull: result = subprocess.call(command, stdout = fnull, stderr = fnull)
 	return result
 
-def getSongData(data):
+def getSongData(data=dict()):
 	if os.path.exists(current_dir + "curSong.json"):
 		jsonObj = libjson.loads(open(current_dir + "curSong.json").read())
 		if jsonObj["title"].find("NPR News") != -1:
@@ -17,10 +17,13 @@ def getSongData(data):
 		else:
 			jsonObj["isSong"] = True
 		return jsonObj
-	elif data["pianobar"]:
-		return libjson.loads('{"startup":true, "isSong":false}')
+	elif "pianobar" in data:
+		if data["pianobar"] is not None:
+			return libjson.loads('{"startup":true, "isSong":false}')
+		else:
+			return libjson.loads('{"startup":false, "isSong":false}')
 	else:
-		return libjson.loads('{"startup":false, "isSong":false}')
+		return False
 
 def writeMsg(msg):
 	open(current_dir + "msg", "w").write(msg)
