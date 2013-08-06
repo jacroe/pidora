@@ -134,11 +134,21 @@ function stationSetup()
 
 function getStations(index)
 {
-	$.get("api", {json:JSON.stringify({"method":"GetStationList", "id":1, "index":index})}).done(function(stationList)
+	$.get("api", {json:JSON.stringify({"method":"GetStationData", "id":1, "index":index})}).done(function(stationList)
 	{
+		stationList = stationList.stationData
 		clearScreen('#stationList', function()
 		{
-			$('#stationList').html(stationList.stationList);
+			var htmlStationList = ""
+			if(stationList.back != null)
+				htmlStationList = "<a onclick=getStations(" + stationList.back + ");>B - Back</a><br />\n";
+			for(var i = 0; i < stationList.stations.length; i++)
+			{
+				htmlStationList += "<a onclick=changeStation('" + index + i + "');>" + i + " - " + stationList.stations[i] + "</a><br />\n"
+			}
+			if(stationList.next != null)
+				htmlStationList += "<a onclick=getStations(" + stationList.next + ");>N - Next</a><br />\n";
+			$('#stationList').html(htmlStationList);
 		});
 	});
 }

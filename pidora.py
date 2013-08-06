@@ -48,25 +48,24 @@ def getExplanation():
 
 def getStations(index):
 	listStations = open(current_dir + "stationList").read().split("|")
+	stationList = dict(index=index)
 	lo = index*10
 	if lo > len(listStations):
-		return ""
+		return dict(error="No stations in that range")
 	if len(listStations) < lo+10:
 		hi = len(listStations)
 	else:
 		hi = lo+10
-	returnData = ""
-
-	if lo > 0:
-		returnData += "<a onclick=getStations(" + str(index-1) + ");>B - Back</a><br />\n"
+	
+	stationList["back"] = index-1 if lo > 0 else None
+	stationList["next"] = index+1 if len(listStations) > hi else None
+	stations = []
 	for i in range(lo,hi):
 		station = listStations[i].split("=")
-		returnData += "<a onclick=changeStation('" + str(station[0]) + "');>" + str(station[0][-1:]) + " - " + str(station[1]) + "</a><br />\n"
+		stations.append(station[1])
+	stationList["stations"] = stations
 
-	if len(listStations) > hi:
-		returnData += "<a onclick=getStations(" + str(index+1) + ");>N - Next</a><br />"
-
-	return returnData
+	return stationList
 
 def Control(command):
 	commands = dict(pause="p", next="n", love="+", ban="-", tired="t")
@@ -84,7 +83,7 @@ def Control(command):
 	except KeyError:
 		return False
 def ChangeStation(id):
-	open(current_dir + "ctl", "w").write("s" + str(id) + "\n")
+	open(current_dir + "ctl", "w").write("s" + str(int(id)) + "\n")
 	writeMsg("Changed station")
 	return True
 
@@ -118,8 +117,8 @@ def api(data, json=None):
 		replyJSON = libjson.dumps(dict(method="GetSongInfo", msg=msg, id=json["id"], song=songData), indent=2)
 	elif json["method"] == "GetExplanation":
 		replyJSON = libjson.dumps(dict(method="GetExplanation", id=json["id"], explanation=getExplanation()), indent=2)
-	elif json["method"] == "GetStationList":
-		replyJSON = libjson.dumps(dict(method="GetStationList", id=json["id"], stationList=getStations(json["index"])), indent=2)
+	elif json["method"] == "GetStationData":
+		replyJSON = libjson.dumps(dict(method="GetStationList", id=json["id"], stationData=getStations(json["index"])), indent=2)
 	elif json["method"] == "Control":
 		if Control(json["command"]):
 			replyJSON = libjson.dumps(dict(method="Control", id=json["id"], command=json["command"], response="ok"), indent=2)
