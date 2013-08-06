@@ -28,6 +28,8 @@ $(document).ready(function()
 					{
 						Mousetrap.reset();
 						$('#controls').fadeOut('slow');
+						if(newSongData.startup == false)
+							Mousetrap.bind(['s', 'enter', 'space'], function() { pianobarStart(); });
 					}
 				}
 			}
@@ -187,6 +189,10 @@ function sendCommand(action)
 	$.get("api", {json:JSON.stringify({"method":"Control", "id":1, "command":action})});
 };
 
+function pianobarStart()
+{
+	$.get("api", {json:JSON.stringify({"method":"Pianobar.Start", "id":1})});
+};
 function pianobarQuit()
 {
 	$.get("api", {json:JSON.stringify({"method":"Pianobar.Quit", "id":1})});

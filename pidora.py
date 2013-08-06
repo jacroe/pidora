@@ -142,16 +142,22 @@ def api(data, json=None):
 		else:
 			replyJSON = libjson.dumps(dict(method="ChangeStation", id=json["id"], response="bad"), indent=2)
 	elif json["method"] == "Pianobar.Start":
-		data["pianobar"] = process(["pianobar"], True)
-		replyJSON = json=libjson.dumps(dict(method="Pianobar.Start", id=json["id"], response="ok"), indent=2)
+		if(data["pianobar"] is None):
+			data["pianobar"] = process(["pianobar"], True)
+			replyJSON = json=libjson.dumps(dict(method="Pianobar.Start", id=json["id"], response="ok"), indent=2)
+		else:
+			replyJSON = json=libjson.dumps(dict(method="Pianobar.Start", id=json["id"], response="bad"), indent=2)
 	elif json["method"] == "Pianobar.Quit":
-		open(current_dir + "ctl", "w").write("q")
-		writeMsg("Shutdown")
-		os.remove(current_dir + "stationList")
-		os.remove(current_dir + "curSong.json")
-		data["pianobar"].wait()
-		data["pianobar"] = None
-		replyJSON = libjson.dumps(dict(method="Pianobar.Quit", id=json["id"], response="ok"), indent=2)
+		if(data["pianobar"]):
+			open(current_dir + "ctl", "w").write("q")
+			writeMsg("Shutdown")
+			os.remove(current_dir + "stationList")
+			os.remove(current_dir + "curSong.json")
+			data["pianobar"].wait()
+			data["pianobar"] = None
+			replyJSON = libjson.dumps(dict(method="Pianobar.Quit", id=json["id"], response="ok"), indent=2)
+		else:
+			replyJSON = libjson.dumps(dict(method="Pianobar.Quit", id=json["id"], response="bad"), indent=2)
 	else:
 		replyJSON = libjson.dumps(dict(method="NoValidMethod", id=json["id"], response="bad"), indent=2)
 
