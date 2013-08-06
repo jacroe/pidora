@@ -1,5 +1,9 @@
 cd $HOME
-echo "Installing packages. This may take a while..."
+clear
+echo "Hello There!"
+echo "We're starting the Pidora Installation. Grab your helmets and hang on. This is going to be quick."
+echo
+echo "Installing packages. Now, this may take a while..."
 sudo apt-get install pianobar git mpg123 python-feedparser -y
 echo "All packages installed"
 sleep 5
@@ -18,6 +22,7 @@ echo "Press q to quit at any time."
 read -n1 -r -p "Press any key to continue..."
 echo
 pianobar
+echo
 echo "If for whatever reason it didn't work, you'll need to troubleshoot it yourself."
 echo "Once you've done so, we'll start setting up the rest of it."
 read -n1 -r -p "Press any key to continue..."
@@ -39,19 +44,15 @@ fifo = $HOME/pidora/ctl" >> ~/.config/pianobar/config
 echo "We think we're done. Let's test it, shall we?"
 read -n1 -r -p "Press any key to continue..."
 clear
-echo "Start pianobar in another terminal."
-echo "I'll wait."
-read -n1 -r -p "Press any key to continue..."
-echo 
 echo "We're going to start the Pidora webserver now. You can access it by going to http://127.0.0.1:8080 in a browser."
-echo "You should have full control pianobar. Experiment with it to be sure."
+echo "You should have full control of pianobar. Experiment with it to be sure."
 echo "You can stop the server at any time by pressing Ctrl+C."
 python pidora/hello.py
 clear
 echo "Configuring the startup script."
 echo "rm $HOME/pidora/curSong.json
-@midori -a \"http://localhost:8080/\" -e Fullscreen
-@python $HOME/pidora/hello.py" | sudo tee -a /etc/xdg/lxsession/LXDE/autostart
+@python $HOME/pidora/hello.py
+@midori -a \"http://localhost:8080/\" -e Fullscreen" | sudo tee -a /etc/xdg/lxsession/LXDE/autostart
 clear
 echo "Done!"
 echo "Reboot your Pi and enjoy!"
