@@ -68,7 +68,7 @@ def getStations(index):
 	return stationList
 
 def Control(command):
-	commands = dict(pause="p", next="n", love="+", ban="-", tired="t")
+	commands = dict(pause="p", next="n", love="+", ban="-", tired="t", volumedown="(", volumeup=")")
 	try:
 		open(current_dir + "ctl", "w").write(commands[command])
 		if command == "next":
@@ -82,6 +82,7 @@ def Control(command):
 		return True
 	except KeyError:
 		return False
+
 def ChangeStation(id):
 	open(current_dir + "ctl", "w").write("s" + str(int(id)) + "\n")
 	writeMsg("Changed station")

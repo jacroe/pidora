@@ -209,5 +209,7 @@ function setMousetraps()
 	Mousetrap.bind('q', function() { pianobarQuit(); });
 	Mousetrap.bind('e', function() { explainSong(); });
 	Mousetrap.bind('s', function() { stationSetup(); });
+	Mousetrap.bind(['(', '-', '_'], function() { sendCommand('volumedown'); });
+	Mousetrap.bind([')', '=', '+'], function() { sendCommand('volumeup'); });
 	//Mousetrap.bind('c', function() { newStationSetup(); }); See issue#23
 }
