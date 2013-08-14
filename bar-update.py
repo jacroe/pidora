@@ -42,11 +42,6 @@ elif event == "songfinish":
 		process(["mpg123", feed.entries[0].id])
 elif event == "songlove":
 	open(www + "curSong.json", "w").write(buildJSON(title, artist, album, coverArt, 1, detailUrl))
-	open(www + "msg", "w").write("Loved")
-elif event == "songban":
-	open(www + "msg", "w").write("Banned")
-elif event == "songshelf":
-	open(www + "msg", "w").write("Tired")
 elif event == "usergetstations" or event == "stationcreate" or event == "stationdelete" or event == "stationrename":				# Code thanks to @officerNordBerg on GitHub
 	stationCount = int(fields["stationCount"])
 	stations = ""
