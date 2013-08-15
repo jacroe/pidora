@@ -1,5 +1,5 @@
 def index(songData):
-	return ""
+	return open("static/html/index.html").read()
 
 def mobile(songData):
 	returnData = mobileHead()
