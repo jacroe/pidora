@@ -1,5 +1,9 @@
+import os
+
+current_dir = os.path.dirname(os.path.abspath(__file__)) + "/"
+
 def index(songData):
-	return open("static/html/index.html").read()
+	return open(current_dir + "static/html/index.html").read()
 
 def mobile(songData):
 	returnData = mobileHead()
