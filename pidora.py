@@ -40,9 +40,9 @@ def getExplanation():
 	data = r.groups()[0].split("<br>")
 	traits = data[0:len(data)-1]
 	if data[len(data)-2].find("many other comedic similarities") == -1:
-		ending = "many other similarites as identified by the Music Genome Project"
+		ending = "many other similarities as identified by the Music Genome Project"
 	else:
-		ending = "many other comedic similarites"
+		ending = "many other comedic similarities"
 		traits = data[0:len(data)-2]
 	return "We're playing this track because it features " + ", ".join(traits) + ", and " + ending +"."
 
