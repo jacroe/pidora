@@ -36,9 +36,14 @@ class Pidora():
 			return "<html><head><title>Pianobar is not running</title></head><body><p>Pianobar is not running</p></body></html>"
 
 	@cherrypy.expose
-	def mobile(self):
-		songData = pidora.getSongData()
-		return template.mobile(songData)
+	def mobile(self, c=None):
+		if c is None:
+			songData = pidora.getSongData(self.data)
+			return template.mobile(songData)
+		else:
+			json = libjson.dumps(dict(method="Control", id=0, command=c))
+			pidora.api(self.data, json)
+			raise cherrypy.HTTPRedirect('/mobile')
 	m = mobile
 
 cherrypy.quickstart(Pidora(), config=current_dir + "cpy.conf")

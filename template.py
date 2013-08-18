@@ -7,10 +7,21 @@ def index(songData):
 
 def mobile(songData):
 	returnData = mobileHead()
-	returnData += """\t<div class="displayed">""" + songData["artist"] + """<br />
-	""" + songData["title"] + """</a><br />
-	""" + songData["album"] + """</div>
-	<img class="displayed" src=""" + songData["artURL"] + """ width="350" height="350" alt=" """ + songData["title"]  + " by " + songData["artist"] + """ ">"""
+	try:
+		if not songData["artURL"]:
+			songData["artURL"] = "imgs/pandora.png"
+		returnData += """\t<div class="displayed">""" + songData["title"] + """ """
+		if songData["loved"]:
+			returnData += "<3"
+		returnData += """ <br />
+		""" + songData["artist"] + """<br />
+		""" + songData["album"] + """</div>
+		<img class="displayed" src=""" + songData["artURL"] + """ width="350" height="350" alt=" """ + songData["title"]  + " by " + songData["artist"] + """ ">"""
+	except KeyError:
+		returnData += """\t<div class="displayed">We're Starting up<br />
+		Sit Tight<br />
+		And Hang On</div>
+		<img class="displayed" src=imgs/pandora.png alt="Pandora logo">"""
 	returnData += mobileFoot()
 	return returnData
 
@@ -23,12 +34,11 @@ def mobileHead():
 	<meta name="HandheldFriendly" content="true" />
 	<meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" />
 	<meta name="robots" content="index, follow" />
-	<meta http-equiv="Refresh" content="5">
 	<link rel=stylesheet href=css/mobile.css />
 </head>
 <body>
 <div id="header">
-	<p>Controls currently disabled</p>
+	<p><a href=?c=pause>Pause</a> <a href=?c=next>Next</a> <a href=?c=love>Love</a> <a href=?c=ban>Ban</a> <a href=?tired>Tired</a></p>
 </div>
 <div class="colmask fullpage">
 	<div class="col1">
