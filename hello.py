@@ -46,4 +46,9 @@ class Pidora():
 			raise cherrypy.HTTPRedirect('/mobile')
 	m = mobile
 
+	@cherrypy.expose
+	def tv(self):
+		songData = pidora.getSongData(self.data)
+		return template.tv(songData)
+
 cherrypy.quickstart(Pidora(), config=current_dir + "cpy.conf")

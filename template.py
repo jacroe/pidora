@@ -6,7 +6,7 @@ def index(songData):
 	return open(current_dir + "static/html/index.html").read()
 
 def tv(songData):
-	return open(current_dir + "static/htmltv.html").read()
+	return open(current_dir + "static/html/tv.html").read()
 
 def mobile(songData):
 	returnData = mobileHead()
