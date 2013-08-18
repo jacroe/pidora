@@ -23,9 +23,9 @@ class Pidora():
 	def start(self):
 		if self.data['pianobar'] is None:
 			pidora.api(self.data, '{"method":"Pianobar.Start", "id":1}')
-			return "<html><head><title>Pianobar has started</title></head><body><p>Pianobar is starting</p></body></html>"
+			return "<html><head><title>Pianobar has started</title></head><meta http-equiv=\"refresh\" content=\"3;URL=/mobile\"><body><p>Pianobar is starting</p></body></html>"
 		else:
-			return "<html><head><title>Pianobar is already running</title></head><body><p>Pianobar is already running</p></body></html>"
+			return "<html><head><title>Pianobar is already running</title><meta http-equiv=\"refresh\" content=\"3;URL=/mobile\"></head><body><p>Pianobar is already running</p></body></html>"
 
 	@cherrypy.expose
 	def quit(self):
