@@ -10,8 +10,11 @@ class Pidora():
 
 	@cherrypy.expose
 	def index(self):
-		songData = pidora.getSongData()
-		return template.index(songData)
+		songData = pidora.getSongData(self.data)
+		if "startup" not in songData and songData["isSong"] is True:
+			return template.index(songData, pidora.getExplanation())
+		else:
+			return template.index(songData)
 
 	@cherrypy.expose
 	def api(self, json=None):
@@ -39,7 +42,10 @@ class Pidora():
 	def mobile(self, c=None):
 		if c is None:
 			songData = pidora.getSongData(self.data)
-			return template.mobile(songData)
+			if "startup" not in songData and songData["isSong"] is True:
+				return template.mobile(songData, pidora.getExplanation())
+			else:
+				return template.mobile(songData)
 		else:
 			json = libjson.dumps(dict(method="Control", id=0, command=c))
 			pidora.api(self.data, json)
@@ -49,6 +55,9 @@ class Pidora():
 	@cherrypy.expose
 	def tv(self):
 		songData = pidora.getSongData(self.data)
-		return template.tv(songData)
+		if "startup" not in songData and songData["isSong"] is True:
+			return template.tv(songData, pidora.getExplanation())
+		else:
+			return template.tv(songData)
 
 cherrypy.quickstart(Pidora(), config=current_dir + "cpy.conf")
