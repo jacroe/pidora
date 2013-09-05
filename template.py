@@ -63,6 +63,7 @@ def mobileTemplate():
 	<select name="stationselect">
 		<option>Change Station</option>
 	</select>
+	</p>
 </div>
 <div class="colmask fullpage">
 	<div class="col1">
