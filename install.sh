@@ -4,8 +4,17 @@ echo "Hello There!"
 echo "We're starting the Pidora Installation. Grab your helmets and hang on. This is going to be quick."
 echo
 echo "Installing packages. Now, this may take a while..."
-sudo apt-get install pianobar git mpg123 python-feedparser -y
+sudo apt-get install git mpg123 python-feedparser libao-dev libmad0-dev libfaad-dev libgnutls-dev libjson0-dev libgcrypt11-dev -y
 echo "All packages installed"
+sleep 5
+clear
+echo "Cloning into pianobar"
+git clone https://github.com/PromyLOPh/pianobar.git -q
+echo "Cloaning pianobar complete."
+cd pianobar/
+echo "Building pianobar"
+sudo make install
+echo "Build complete"
 sleep 5
 clear
 echo "Starting to set up pianobar"
@@ -33,7 +42,7 @@ cd $HOME
 clear
 echo "Thanks. We'll now start cloning into Pidora"
 git clone https://github.com/jacroe/pidora.git -q
-echo "Downloading finished."
+echo "Cloaning Pidora complete."
 echo
 echo "We'll begin setting up Pidora for use."
 echo "Creating FIFO queue"
