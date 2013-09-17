@@ -4,7 +4,7 @@ echo "Hello There!"
 echo "We're starting the Pidora Installation. Grab your helmets and hang on. This is going to be quick."
 echo
 echo "Installing packages. Now, this may take a while..."
-sudo apt-get install git mpg123 python-feedparser libao-dev libmad0-dev libfaad-dev libgnutls-dev libjson0-dev libgcrypt11-dev -y
+sudo apt-get install git mpg123 python-feedparser libao-dev libmad0-dev libfaad-dev libgnutls-dev libjson0-dev libgcrypt11-dev pkg-config -y
 echo "All packages installed"
 sleep 5
 clear
