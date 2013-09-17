@@ -3,8 +3,6 @@ Pidora
 
 [![Clone in Koding](http://kbutton.org/clone.png?v1378906380)](http://kbutton.org/jacroe/pidora)
 
-**Danger, Will Robinson!** Please note this is the README for a pre-release. You can view the [old README](https://github.com/jacroe/pidora/blob/48a886c8b786301cd4f8912cd0f3cc0616d4052b/README.md) and download the [lastest stable release](https://github.com/jacroe/pidora/releases/tag/v0.1.1).
-
 Installation
 ------------
 
