@@ -9,7 +9,7 @@ def process(command, new = False):
 		with open(os.devnull, "w") as fnull: result = subprocess.call(command, stdout = fnull, stderr = fnull)
 	return result
 
-def getSongData(data=dict()):
+def getSongData(data):
 	if data["songData"] is not None:
 		jsonObj = data["songData"]
 		if jsonObj["title"].find("NPR News") != -1:
@@ -33,8 +33,8 @@ def setSongData(data=dict(), newSongData=dict()):
 def writeMsg(msg):
 	open(current_dir + "msg", "w").write(msg)
 
-def getExplanation():
-	songData = getSongData()
+def getExplanation(data):
+	songData = getSongData(data)
 	regex = re.compile("Track</h2>(.*?)</div>",re.IGNORECASE|re.DOTALL)
 	response = urllib2.urlopen(songData["explainURL"])
 	html = response.read()
@@ -128,7 +128,7 @@ def api(data, json=None):
 		else:
 			replyJSON = libjson.dumps(dict(method="SetSongInfo", id=json["id"], response="bad"))
 	elif json["method"] == "GetExplanation":
-		replyJSON = libjson.dumps(dict(method="GetExplanation", id=json["id"], explanation=getExplanation()), indent=2)
+		replyJSON = libjson.dumps(dict(method="GetExplanation", id=json["id"], explanation=getExplanation(data)), indent=2)
 	elif json["method"] == "GetStationData":
 		replyJSON = libjson.dumps(dict(method="GetStationList", id=json["id"], stationData=getStations(json["index"])), indent=2)
 	elif json["method"] == "Control":
