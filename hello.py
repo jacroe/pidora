@@ -3,7 +3,7 @@ current_dir = os.path.dirname(os.path.abspath(__file__)) + "/"
 cherrypy.engine.autoreload.unsubscribe()
 class Pidora():
 
-	data = dict(pianobar=None)
+	data = dict(pianobar=None, songData=None)
 	
 	#Comment the line below to cancel autostart
 	data['pianobar'] = pidora.process(['pianobar'], True)

@@ -10,8 +10,8 @@ def process(command, new = False):
 	return result
 
 def getSongData(data=dict()):
-	if os.path.exists(current_dir + "curSong.json"):
-		jsonObj = libjson.loads(open(current_dir + "curSong.json").read())
+	if data["songData"] is not None:
+		jsonObj = data["songData"]
 		if jsonObj["title"].find("NPR News") != -1:
 			jsonObj["isSong"] = False
 		else:
@@ -24,6 +24,11 @@ def getSongData(data=dict()):
 			return libjson.loads('{"startup":false, "isSong":false}')
 	else:
 		return False
+
+def setSongData(data=dict(), newSongData=dict()):
+	data['songData'] = newSongData
+	print data['songData']
+	return True
 
 def writeMsg(msg):
 	open(current_dir + "msg", "w").write(msg)
@@ -116,6 +121,12 @@ def api(data, json=None):
 			msg = None
 		songData = getSongData(data)
 		replyJSON = libjson.dumps(dict(method="GetSongInfo", msg=msg, id=json["id"], song=songData), indent=2)
+	elif json["method"] == "SetSongInfo":
+		if 'songData' in json:
+			if setSongData(data, json["songData"]):
+				replyJSON = libjson.dumps(dict(method="SetSongInfo", id=json["id"], response="ok"))
+		else:
+			replyJSON = libjson.dumps(dict(method="SetSongInfo", id=json["id"], response="bad"))
 	elif json["method"] == "GetExplanation":
 		replyJSON = libjson.dumps(dict(method="GetExplanation", id=json["id"], explanation=getExplanation()), indent=2)
 	elif json["method"] == "GetStationData":
@@ -153,7 +164,7 @@ def api(data, json=None):
 			open(current_dir + "ctl", "w").write("q")
 			writeMsg("Shutdown")
 			os.remove(current_dir + "stationList")
-			os.remove(current_dir + "curSong.json")
+			data["songData"] = None
 			data["pianobar"].wait()
 			data["pianobar"] = None
 			replyJSON = libjson.dumps(dict(method="Pianobar.Quit", id=json["id"], response="ok"), indent=2)

@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-import sys, csv, subprocess, os, json
+import sys, csv, subprocess, os, json, requests
 from time import gmtime, strftime
 
 def process(command, new = False):
@@ -10,8 +10,11 @@ def process(command, new = False):
 		with open(os.devnull, "w") as fnull: result = subprocess.call(command, stdout = fnull, stderr = fnull)
 def buildJSON(title, artist, album, artURL, loved, explainURL, songDuration = 0, songPlayed = 0):
 	data = '{"title": ' + json.dumps(title) + ',"artist": ' + json.dumps(artist) + ',"album": ' + json.dumps(album) + ',"artURL": ' + json.dumps(artURL) + ',"loved": ' + str(bool(loved)).lower() + ',"explainURL": ' + json.dumps(explainURL) + ', "songDuration": ' + str(songDuration) + ', "songPlayed": ' + str(songPlayed) + '}'
-	return json.dumps(json.loads(data), indent=2)
+	return json.loads(data)
+def sendRequest(url, method, songData):
+	requests.post(url, params=dict(json=json.dumps(dict(method=method, id=1, songData=songData))))
 www = os.path.dirname(os.path.abspath(__file__)) + "/"
+url = "http://localhost:8080/api"
 
 event = sys.argv[1]
 lines = sys.stdin.readlines()
@@ -27,7 +30,7 @@ songDuration = fields["songDuration"]
 songPlayed = fields["songPlayed"]
 
 if event == "songstart" or event == "songexplain":
-	open(www + "curSong.json", "w").write(buildJSON(title, artist, album, coverArt, rating, detailUrl))
+	sendRequest(url, "SetSongInfo", buildJSON(title, artist, album, coverArt, rating, detailUrl))
 elif event == "songfinish":
 	import feedparser, urllib
 	feed = feedparser.parse("http://www.npr.org/rss/podcast.php?id=500005")
@@ -38,10 +41,10 @@ elif event == "songfinish":
 	currMin = int(strftime("%M", gmtime()))
 	if currNews != lastNews and currNews == currHour and currMin < 30:
 		open(www + "lastNews", "w").write(str(feed.entries[0].updated_parsed.tm_hour))
-		open(www + "curSong.json", "w").write(buildJSON(feed.entries[0].title, feed.feed.title, feed.feed.title, "http://media.npr.org/images/podcasts/2013/primary/hourly_news_summary.png", 0, None))
+		sendRequest(url, "SetSongInfo", buildJSON(feed.entries[0].title, feed.feed.title, feed.feed.title, "http://media.npr.org/images/podcasts/2013/primary/hourly_news_summary.png", 0, None))
 		process(["mpg123", feed.entries[0].id])
 elif event == "songlove":
-	open(www + "curSong.json", "w").write(buildJSON(title, artist, album, coverArt, 1, detailUrl))
+	sendRequest(url, "SetSongInfo", buildJSON(title, artist, album, coverArt, rating, detailUrl))
 elif event == "usergetstations" or event == "stationcreate" or event == "stationdelete" or event == "stationrename":				# Code thanks to @officerNordBerg on GitHub
 	stationCount = int(fields["stationCount"])
 	stations = ""
