@@ -58,6 +58,7 @@ function updateSong(data)
 {
 	if(data.startup == false)
 	{
+		document.title = "Pidora";
 		$('#content h1').html("Want Music?");
 		$('#content h2').html("Scan the QR Code");
 		$('#content .album').html("");
@@ -66,6 +67,7 @@ function updateSong(data)
 	}
 	else if(data.startup == true)
 	{
+		document.title = "Starting up | Pidora";
 		$('#content h1').html("Hello There");
 		$('#content h2').html("Pianobar is starting up...");
 		$('#content .album').html("");
@@ -74,6 +76,7 @@ function updateSong(data)
 	}
 	else
 	{
+		document.title = data.title + ", " + data.artist + " | Pidora";
 		$('#content h1').html(data.title);
 		$('#content h2').html(data.artist);
 		$('#content .album').html(data.album);
