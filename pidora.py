@@ -1,4 +1,4 @@
-import json as libjson, os, re, urllib2, subprocess
+import json as libjson, os, re, requests, subprocess
 
 current_dir = os.path.dirname(os.path.abspath(__file__)) + "/"
 
@@ -27,7 +27,6 @@ def getSongData(data):
 
 def setSongData(data=dict(), newSongData=dict()):
 	data['songData'] = newSongData
-	print data['songData']
 	return True
 
 def writeMsg(msg):
@@ -36,8 +35,7 @@ def writeMsg(msg):
 def getExplanation(data):
 	songData = getSongData(data)
 	regex = re.compile("Track</h2>(.*?)</div>",re.IGNORECASE|re.DOTALL)
-	response = urllib2.urlopen(songData["explainURL"])
-	html = response.read()
+	html = requests.get(songData["explainURL"]).text
 	string = html.replace("\t", "").replace("\n", "").replace('<div style="display: none;">', "")
 	r = regex.search(string)
 	if r is None:
