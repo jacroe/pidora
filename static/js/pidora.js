@@ -63,6 +63,7 @@ function updateSong(data)
 		$('#content h2').html("Scan the QR Code");
 		$('#content .album').html("");
 		$('#content .love').hide();
+		$('#content .details').html("EMPTY").hide();
 		$('#content .albumart').attr("src", "https://chart.googleapis.com/chart?cht=qr&chs=500x500&chl=http%3A//" + location.host + "/start&chld=H|0");
 	}
 	else if(data.startup == true)
