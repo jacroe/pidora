@@ -14,7 +14,7 @@ sleep 5
 clear
 echo "Cloning into pianobar"
 git clone https://github.com/PromyLOPh/pianobar.git -q
-echo "Cloaning pianobar complete."
+echo "Cloning pianobar complete."
 cd pianobar/
 echo "Building pianobar"
 sudo make install
@@ -46,7 +46,7 @@ cd $HOME
 clear
 echo "Thanks. We'll now start cloning into Pidora"
 git clone https://github.com/jacroe/pidora.git -q
-echo "Cloaning Pidora complete."
+echo "Cloning Pidora complete."
 echo
 echo "We'll begin setting up Pidora for use."
 echo "Creating FIFO queue"
