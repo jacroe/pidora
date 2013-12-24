@@ -57,7 +57,10 @@ fifo = $HOME/pidora/ctl" >> ~/.config/pianobar/config
 echo "We think we're done. Let's test it, shall we?"
 read -n1 -r -p "Press any key to continue..."
 clear
-echo "We're going to start the Pidora webserver now. You can access it by going to http://127.0.0.1:8080 in a browser."
+LANip=`ip addr show | awk '$1=="inet" {print $2}' | cut -f1 -d'/'`
+echo "We're going to start the Pidora webserver now."
+echo "You can access it by going to http://127.0.0.1:8080 in the RPi's browser or"
+echo "http://"$LANip":8080 on a device on the same Local Area Network."
 echo "You should have full control of pianobar. Experiment with it to be sure."
 echo "You can stop the server at any time by pressing Ctrl+C."
 python pidora/hello.py
