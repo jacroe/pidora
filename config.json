@@ -1,0 +1,15 @@
+{
+	"pianobar":
+	{
+		"ctl": "/home/jacob/.config/pianobar/ctl"
+	},
+	"npr": {},
+	"somafm":
+	{
+		"lastfm_api": "72dde5529328e4f5da9eb6e3139876f4"
+	},
+	"bbc": {},
+
+	"startup":"pianobar",
+	"default_port": 8008
+}

@@ -1,24 +1,18 @@
-Pidora
-======
+Pidora v2 Pre-Alpha README
+==========================
 
-[![Clone in Koding](http://kbutton.org/clone.png?v1378906380)](http://kbutton.org/jacroe/pidora)
+**Danger, Will Robinson!** Please note this is the README for Pidora v2. You can download the more stable v1.0-final [here](https://github.com/jacroe/pidora/releases/tag/v1.1-final).
 
-Installation
-------------
+Setup
+-----
 
-1.	Run the following command `wget https://raw.github.com/jacroe/pidora/master/install.sh && chmod +x install.sh && ./install.sh`.
-2.	Follow the instructions [here](http://raspberrypi.stackexchange.com/questions/752/how-do-i-prevent-the-screen-from-going-blank) to make the monitor not turn itself off. However, save it to the `~/.xsessionrc` instead of `~/.xinitrc`.
-3.	Finally, remove all the icons on the desktop and set the statusbar to hide automatically. This isn't necessary but it gives less an impression that this is a computer.
-
-Updates
--------
-
-Updates are easy thinks to Git. Simply `cd ~/pidora` and then `git pull`. If Pidora is currently running, you'll need to kill pianobar and restart the server. This can easily be done by simply restarting the Pi. Please note, updates may contain new bugs. Use at your own risk. If your installation does become unusuable, may I suggest our [releases](https://github.com/jacroe/pidora/releases)?
+1. Unzip the contents. If you're reading this you've obviously got a handle on decompressing files so head on over to Step 2.
+2. Register for a free API key for Last.fm's api. You'll use this to get the albumart for Soma.fm. You can access that at [http://www.last.fm/api](http://www.last.fm/api). Plug in your key in the appropriate field in `config.json`.
+3. Move your FIFO to your Pianobar config directory (e.g. `/home/jacob/.config/pianobar/ctl`) and update that location in the config as well. 
+4. That should be it. Run `hello.py` to start Pidora v2.
 
 
-Contact me
-==========
+Notes
+-----
 
-You can shoot me an email or submit an issue at [GitHub](https://github.com/jacroe/pidora/issues/new) if you have a question/problem or a suggestion. I welcome them with open arms.
-
-If you found this useful, I also welcome tips with open arms! You can tip me via [Gittip](http://gittip.com/jacroe), [Paypal](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=XC7VG35XEHN8W), or [Bitcoin](http://jacroe.com/bitcoin.html). I'll use these to pay for bills and/or Mountain Dew and pizza. Thank you, and best wishes!
+Pidora v2 has a much better API than v1. However, it's not documented yet. I've included some initial documentation in the `docs/` folder, but it's very incomplete and hard to understand. This will be flushed out soon. If you're feeling really ambitious, you check out the API code in `hello.py` and see how it works. It's a whole lot less clunky than in v1.

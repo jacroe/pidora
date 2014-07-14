@@ -1,0 +1,49 @@
+API
+
+For all services:
+* Song.GetData
+* Song.SetData
+* Player.Control
+* Player.Service
+
+For Pianobar:
+* Pianobar.GetStationData
+* Pianobar.SetStationData
+* Pianobar.ChangeStation
+
+-----------------------------------------------
+
+Required:
+	method	string
+Optional
+	params	object
+
+
+Song Information
+	method:	Song
+					.GetData
+					.SetData
+	params: (for .SetData)
+			"title"
+			"artist"
+			"album"
+			"albumart"
+			"extra" (either an object with more data [Pianobar uses boolean 'loved' and string 'explainURL'] or null)
+
+Player Control
+	method:	Player
+				  .Control
+				  .Service
+	params:
+			"command" (service related commands)
+			"service" (particular service to switch to)
+
+Pianobar Information
+	method: Pianobar
+					   .GetStationData
+					   .SetStationData
+					   .ChangeStation
+	params:
+			"stations" (array of stations) (for Set)
+			"stationId" (integer) (for Change)
+			"stationName" (string) (for Change)

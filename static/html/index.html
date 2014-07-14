@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
 <title>Pidora</title>
-<link rel=stylesheet href=css/styles.css />
-<link rel="icon" type="image/png" href="imgs/favicon.ico">
+<link rel=stylesheet href=static/css/styles.css />
+<link rel="icon" type="image/png" href="static/imgs/favicon.ico">
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 <script src="http://cdn.craig.is/js/mousetrap/mousetrap.min.js?88c23"></script>
-<script src="js/pidora.js"></script>
+<script src="static/js/pidora.js"></script>
 </head>
 <body>
 
@@ -16,33 +16,18 @@
 <a onclick="sendCommand('love');">Love</a>
 <a onclick="sendCommand('ban');">Ban</a>
 <a onclick="sendCommand('tired');">Tired</a>
-<a onclick="explainSong();">Explain</a>
-<a onclick="stationSetup();">Station</a>
+<a onclick="$('#content .details').fadeToggle('slow');">Explain</a>
 <a onclick="sendCommand('volumeup');">V+</a>
 <a onclick="sendCommand('volumedown');">V-</a>
-<!--<a onclick="newStationSetup();">Create</a>-->
 </div>
 
 <div id="content" style="display:none">
-<img src=imgs/love.png class=love style="display:none" alt="Loved" />
-<img src=imgs/pandora.png onError="this.onerror=null;this.src='imgs/pandora.png';" class=albumart alt="Pandora logo" />
+<img src=static/imgs/love.png class=love style="display:none" alt="Loved" />
+<img src=static/imgs/pandora.png onError="this.onerror=null;this.src='static/imgs/pandora.png';" class=albumart alt="Pandora logo" />
 <h1></h1>
 <h2></h2>
 <h2 class=album></h2>
-<p class=details>EMPTY</p>
+<p class=details></p>
 </div>
-
-<div id="stationList" style="display:none">
-</div>
-
-<div id="newStation" style="display:none">
-Create new station from:<br />
-<a onclick="newStation('song');">[S]ong</a> or <a onclick="newStation('artist');">[A]rtist</a>
-</div>
-
-<div id="msg" style="display:none">
-<h1></h1>
-</div>
-
 </body>
 </html>

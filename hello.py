@@ -1,54 +1,144 @@
-import cherrypy, os, json as libjson, pidora, template
+import cherrypy, os, json as libjson
 current_dir = os.path.dirname(os.path.abspath(__file__)) + "/"
 cherrypy.engine.autoreload.unsubscribe()
+
+from pidora.pianobar import Pianobar as pianobar
+from pidora.npr import Npr as npr
+from pidora.somafm import Somafm as somafm
+from pidora.bbc import Bbc as bbc
+
+config = libjson.loads(open(current_dir + "config.json", "r").read())
+
 class Pidora():
 
-	data = dict(pianobar=None, songData=None)
-	
-	#Comment the line below to cancel autostart
-	data['pianobar'] = pidora.process(['pianobar'], True)
+	service, serviceName = None, None
+
+	if "startup" in config:
+		service = globals()[config["startup"]]()
+		serviceName = config["startup"]
+		service.start()
 
 	@cherrypy.expose
 	def index(self):
-		songData = pidora.getSongData(self.data)
-		return template.index(songData)
+		return open("static/html/index.html", "r").read()
+
+	@cherrypy.expose
+	def status(self):
+		return "We're jolly good"
+
+	@cherrypy.expose
+	def mobile(self, c=None):
+		if c is not None:
+			self.service.control(c)
+			raise cherrypy.HTTPRedirect('/mobile')
+		songdata = self.service.get_songdata()
+		mobile_page = open("static/html/mobile.html", "r").read()
+
+		replacement_dict = {
+			"{SONGTITLE}":songdata["title"],
+			"{SONGARTIST}":songdata["artist"],
+			"{SONGALBUM}":songdata["album"],
+			"{SONGARTURL}":songdata["albumart"],
+			"{ALBUMARTALT}":songdata["album"],
+			"{LOVED}":"",
+			"{SERVICE}":self.serviceName
+		}
+
+		if "loved" in songdata:
+			if songdata["loved"]: replacement_dict["{LOVED}"] = "&hearts;"
+		if songdata["albumart"] == "":
+			replacement_dict["{SONGARTURL}"] = "static/imgs/pandora.png"
+
+		for k,v in replacement_dict.items():
+			mobile_page = mobile_page.replace(k,v)
+
+		return mobile_page
+	m = mobile
 
 	@cherrypy.expose
 	def api(self, json=None):
 		cherrypy.response.headers['Content-Type'] = 'application/json'
-		reply = pidora.api(self.data, json)
-		return reply["json"]
 
-	@cherrypy.expose
-	def start(self):
-		if self.data['pianobar'] is None:
-			pidora.api(self.data, '{"method":"Pianobar.Start", "id":1}')
-			return "<html><head><title>Pianobar has started</title></head><meta http-equiv=\"refresh\" content=\"3;URL=/mobile\"><body><p>Pianobar is starting</p></body></html>"
+		validMethods = ["Song.GetData", "Song.SetData", "Player.Control", "Player.Service"]
+		notValidMethodJSON = libjson.dumps(dict(response="bad", error="NotValidMethod"), indent=2)
+		notValidParameterJSON = libjson.dumps(dict(response="bad", error="NotValidParameter"), indent=2)
+		missingParamaterJSON = libjson.dumps(dict(response="bad", error="MissingParameters"), indent=2)
+		validCall = dict(response="good")
+
+		if not json:
+			return notValidMethodJSON
+		data = libjson.loads(json)
+
+		if "method" not in data:
+			return notValidMethodJSON
 		else:
-			return "<html><head><title>Pianobar is already running</title><meta http-equiv=\"refresh\" content=\"3;URL=/mobile\"></head><body><p>Pianobar is already running</p></body></html>"
+			method = data["method"]
 
-	@cherrypy.expose
-	def quit(self):
-		if self.data['pianobar']:
-			pidora.api(self.data, '{"method":"Pianobar.Quit", "id":1}')
-			return "<html><head><title>Pianobar has quit</title></head><body><p>Pianobar has quit</p></body></html>"
+		if "params" in data:
+			if type(data["params"]) is type(dict()):
+				params = data["params"]
+			else:
+				return notValidParameterJSON
 		else:
-			return "<html><head><title>Pianobar is not running</title></head><body><p>Pianobar is not running</p></body></html>"
+			params = None
 
-	@cherrypy.expose
-	def mobile(self, c=None):
-		if c is None:
-			songData = pidora.getSongData(self.data)
-			return template.mobile(songData)
-		else:
-			json = libjson.dumps(dict(method="Control", id=0, command=c))
-			pidora.api(self.data, json)
-			raise cherrypy.HTTPRedirect('/mobile')
-	m = mobile
+		if method not in validMethods:
+			return self.service.api(data)
 
-	@cherrypy.expose
-	def tv(self):
-		songData = pidora.getSongData(self.data)
-		return template.tv(songData)
+		if method == "Song.GetData":
+			validCall["data"] = self.service.get_songdata()
+			validCall["service"] = self.serviceName
+			return libjson.dumps(validCall, indent=2)
+		elif method == "Song.SetData":
+			if params is None:
+				return missingParamaterJSON
+			if "extra" in params:
+				self.service.set_songdata(
+					params["title"],
+					params["artist"],
+					params["album"],
+					params["albumart"],
+					params["extra"])
+			else:
+				self.service.set_songdata(
+					params["title"],
+					params["artist"],
+					params["album"],
+					params["albumart"])
+			return libjson.dumps(validCall, indent=2)
+		elif method == "Player.Control":
+			if params is None or "command" not in params:
+				return missingParamaterJSON
+			else:
+				if self.service.control(params["command"]):
+					if params["command"] == "quit":
+						self.service = None
+					return libjson.dumps(validCall, indent=2)
+				else:
+					return notValidParameterJSON
+		elif method == "Player.Service":
+			if params is None or "service" not in params:
+				return missingParamaterJSON
+			else:
+				if self.service is not None:
+					self.service.quit()
+				self.service = globals()[params["service"]]()
+				self.serviceName = params["service"]
+				self.service.start()
+				return libjson.dumps(validCall, indent=2)
 
-cherrypy.quickstart(Pidora(), config=current_dir + "cpy.conf")
+cherrypy.config.update({
+	'server.socket_host': "0.0.0.0",
+	'server.socket_port': config["default_port"],
+})
+
+cherrypy_config = {
+	'/': {"tools.staticdir.root": os.path.dirname(os.path.abspath(__file__))},
+	'/static': {
+		'tools.staticdir.on': True,
+		'tools.staticdir.dir': 'static'
+	}
+}
+cherrypy.quickstart(Pidora(), config=cherrypy_config)
+# @TODO
+# If the service has quit or hasn't started, we should let the people know instead of returning old/null data
