@@ -8,8 +8,9 @@ Setup
 
 1. Unzip the contents. If you're reading this you've obviously got a handle on decompressing files so head on over to Step 2.
 2. Register for a free API key for Last.fm's api. You'll use this to get the albumart for Soma.fm. You can access that at [http://www.last.fm/api](http://www.last.fm/api). Plug in your key in the appropriate field in `config.json`.
-3. Move your FIFO to your Pianobar config directory (e.g. `/home/jacob/.config/pianobar/ctl`) and update that location in the config as well. 
-4. That should be it. Run `hello.py` to start Pidora v2.
+3. Move your FIFO to your Pianobar config directory (e.g. `/home/jacob/.config/pianobar/ctl`) and update that location in the config as well.
+4. You'll also need to update your Pianobar `config` file's `event_command` to point to `ext/pianobar-update.py`.
+5. That should be it. Run `hello.py` to start Pidora v2.
 
 
 Notes
