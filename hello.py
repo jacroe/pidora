@@ -88,7 +88,10 @@ class Pidora():
 			return self.service.api(data)
 
 		if method == "Song.GetData":
-			validCall["data"] = self.service.get_songdata()
+			if self.serviceName is None:
+				validCall["data"] = None
+			else:
+				validCall["data"] = self.service.get_songdata()
 			validCall["service"] = self.serviceName
 			return libjson.dumps(validCall, indent=2)
 		elif method == "Song.SetData":
