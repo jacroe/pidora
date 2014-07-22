@@ -47,6 +47,7 @@ clear
 echo "Thanks. We'll now start cloning into Pidora"
 git clone https://github.com/jacroe/pidora.git -q
 echo "Cloning Pidora complete."
+sed -i "s,/home/pi,$HOME," cpy.conf
 echo
 echo "We'll begin setting up Pidora for use."
 echo "Creating FIFO queue"
