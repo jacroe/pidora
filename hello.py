@@ -11,12 +11,13 @@ config = libjson.loads(open(current_dir + "config.json", "r").read())
 
 class Pidora():
 
-	service, serviceName = None, None
+	def __init__(self):
+		self.service, self.serviceName = None, None
 
-	if "startup" in config:
-		service = globals()[config["startup"]]()
-		serviceName = config["startup"]
-		service.start()
+		if "startup" in config:
+			self.service = globals()[config["startup"]]()
+			self.serviceName = config["startup"]
+			self.service.start()
 
 	@cherrypy.expose
 	def index(self):
