@@ -118,7 +118,7 @@ class Pidora():
 			else:
 				if self.service.control(params["command"]):
 					if params["command"] == "quit":
-						self.service = None
+						self.service, self.serviceName = None, None
 					return libjson.dumps(validCall, indent=2)
 				else:
 					return notValidParameterJSON
