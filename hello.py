@@ -23,7 +23,7 @@ class Pidora():
 	def index(self):
 		if self.is_mobile(cherrypy.request.headers["User-Agent"]):
 			raise cherrypy.HTTPRedirect('/mobile')
-		return open("static/html/index.html", "r").read()
+		return open(current_dir + "static/html/index.html", "r").read()
 
 	@cherrypy.expose
 	def status(self):
@@ -35,7 +35,7 @@ class Pidora():
 			self.service.control(c)
 			raise cherrypy.HTTPRedirect('/mobile')
 		songdata = self.service.get_songdata()
-		mobile_page = open("static/html/mobile.html", "r").read()
+		mobile_page = open(current_dir + "static/html/mobile.html", "r").read()
 
 		replacement_dict = {
 			"{SONGTITLE}":songdata["title"],

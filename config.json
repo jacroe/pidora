@@ -10,6 +10,6 @@
 	},
 	"bbc": {},
 
-	"startup":"pianobar",
+	"startup": "pianobar",
 	"default_port": 8008
 }
