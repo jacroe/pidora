@@ -9,6 +9,11 @@
 		"lastfm_api": "72dde5529328e4f5da9eb6e3139876f4"
 	},
 	"bbc": {},
+	"googlemusic":
+	{
+		"username": "bob",
+		"password": "bobandalice4eva"
+	},
 
 	"startup": "pianobar",
 	"default_port": 8008

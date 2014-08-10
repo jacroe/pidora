@@ -5,13 +5,14 @@ echo "We're starting the Pidora Installation. Grab your helmets and hang on. Thi
 echo "Note: This won't set it up to autostart when your Pi comes on. You'll need to do that yourself (for now)"
 echo
 echo "Installing packages..."
-sudo apt-get install git mpg123 libao-dev libfaad-dev libmad0-dev python-feedparser pkg-config python-setuptools -y
+sudo apt-get install git mpg123 libao-dev libfaad-dev libmad0-dev pkg-config python-setuptools python-pygame -y
 echo
 echo "Now configuring python environment..."
 wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 sudo python get-pip.py
 sudo pip install requests
 sudo pip install beautifulsoup4
+sudo pip install gmusicapi
 echo "All packages installed"
 sleep 5
 clear

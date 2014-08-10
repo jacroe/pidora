@@ -6,6 +6,7 @@ from pidora.pianobar import Pianobar as pianobar
 from pidora.npr import Npr as npr
 from pidora.somafm import Somafm as somafm
 from pidora.bbc import Bbc as bbc
+from pidora.googlemusic import Googlemusic as googlemusic
 
 config = libjson.loads(open(current_dir + "config.json", "r").read())
 
