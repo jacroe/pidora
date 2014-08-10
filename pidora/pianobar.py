@@ -121,5 +121,4 @@ class Pianobar(Base):
 				return missingParamaterJSON
 			else:
 				self.change_station_by_id(params["stationId"])
-				return json.dumps(validCall)
-				
+				return json.dumps(validCall, indent=2)
