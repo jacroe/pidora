@@ -68,7 +68,7 @@ class Pianobar(Base):
 	def get_songdata(self):
 		return self.songdata
 	def set_songdata(self, title, artist, album, albumart, extra=dict(loved=False, explainURL=False)):
-		self.songdata = dict(
+		songdata = dict(
 			title=title,
 			artist=artist,
 			album=album,
@@ -78,7 +78,8 @@ class Pianobar(Base):
 			explainURL=extra["explainURL"],
 			)
 		if extra["explainURL"] is not False:
-			self.songdata["explanation"] = str(self.get_explanation(extra["explainURL"]))
+			songdata["explanation"] = str(self.get_explanation(extra["explainURL"]))
+		self.songdata = songdata
 
 	def get_stationdata(self):
 		return self.stationdata
