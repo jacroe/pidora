@@ -34,8 +34,9 @@ class Googlemusic(Base):
 		#self.play_playlist("Soft, Quiet, Sleep")
 		#self.play_album("Shatter Me")
 	def quit(self):
-		self.thread_stop.set()
-		mixer.music.stop()
+		if self.thread is not None:
+			self.thread_stop.set()
+			mixer.music.stop()
 
 	def control(self, command):
 		if command == "start":
