@@ -16,6 +16,7 @@ $(document).ready(function()
 			}
 		});
 	}, 3000);
+	setMousetraps();
 });
 function clearScreen(showNext, doNext)
 {
@@ -47,3 +48,15 @@ function sendCommand(action)
 {
 	$.get("api", {json:JSON.stringify({"method":"Player.Control", "params":{"command":action}})});
 };
+function setMousetraps()
+{
+	Mousetrap.reset();
+	Mousetrap.bind(['p', 'space'], function() { sendCommand('pause'); });
+	Mousetrap.bind('n', function() { sendCommand('next'); });
+	Mousetrap.bind('l', function() { sendCommand('love'); });
+	Mousetrap.bind('b', function() { sendCommand('ban'); });
+	Mousetrap.bind('t', function() { sendCommand('tired'); });
+	Mousetrap.bind('e', function() { $('#content .details').fadeToggle('slow'); });
+	Mousetrap.bind(['(', '-', '_'], function() { sendCommand('volumedown'); });
+	Mousetrap.bind([')', '=', '+'], function() { sendCommand('volumeup'); });
+}
