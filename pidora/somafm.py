@@ -61,9 +61,9 @@ class Somafm(Base):
 			lastfm_json = requests.get("http://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=%s&artist=%s&album=%s&format=json" % (config["lastfm_api"], artist, album)).json()
 			if "error" not in lastfm_json:
 				lastfm_images = lastfm_json["album"]["image"]
-				for i in range(0, len(lastfm_images)):
-					if lastfm_images[i]["size"] == "mega":
-						albumart_url = lastfm_images[i]["#text"]
+				for image in lastfm_images:
+					if image["size"] == "mega":
+						albumart_url = image["#text"]
 				albumart_url = str(albumart_url)
 
 		if albumart_url is None or albumart_url is "":
