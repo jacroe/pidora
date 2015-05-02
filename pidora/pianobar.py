@@ -9,8 +9,8 @@ class Pianobar(Base):
 
 	def start(self):
 		self.songdata = dict(
-			title="",
-			artist="",
+			title="Pianobar is starting up",
+			artist="One moment",
 			album="",
 			albumart="",
 			loved="",
