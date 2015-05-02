@@ -4,7 +4,7 @@ echo "Hello There!"
 echo "We're starting the Pidora Installation. Grab your helmets and hang on. This is going to be quick."
 echo
 echo "Installing packages. Now, this may take a while..."
-sudo apt-get install git mpg123 python-feedparser libao-dev libmad0-dev libfaad-dev libgnutls-dev libjson0-dev libgcrypt11-dev pkg-config python-setuptools -y
+sudo apt-get install git mpg123 python-feedparser libao-dev libmad0-dev libfaad-dev libgnutls-dev libjson0-dev libgcrypt11-dev pkg-config python-setuptools libavfilter-dev libavformat-dev libavcodec-dev -y
 echo "Now configuring python environment..."
 wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
 sudo python get-pip.py
