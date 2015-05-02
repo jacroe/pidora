@@ -5,7 +5,7 @@ echo "We're starting the Pidora Installation. Grab your helmets and hang on. Thi
 echo "Note: This won't set it up to autostart when your Pi comes on. You'll need to do that yourself (for now)"
 echo
 echo "Installing packages..."
-sudo apt-get install git mpg123 libao-dev libfaad-dev libmad0-dev pkg-config python-setuptools python-pygame -y
+sudo apt-get install git mpg123 pkg-config python-setuptools python-pygame libgcrypt11-dev libcurl4-gnutls-dev libavfilter-dev libao-dev libavformat-dev libjson0-dev -y
 echo
 echo "Now configuring python environment..."
 wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
@@ -16,12 +16,13 @@ sudo pip install gmusicapi
 echo "All packages installed"
 sleep 5
 clear
-echo "Downloading pianobar and moving it to the bin/"
-wget https://dl.dropboxusercontent.com/u/170196/pianobar
-sudo mv pianobar /usr/local/bin
-sudo chown root:root /usr/local/bin/pianobar
-sudo chmod 755 /usr/local/bin/pianobar 
-echo "pianobar installed."
+echo "Cloning into pianobar"
+git clone https://github.com/PromyLOPh/pianobar.git -q
+echo "Cloning pianobar complete."
+cd pianobar/
+echo "Building pianobar"
+sudo make install
+echo "Build complete"
 sleep 5
 clear
 echo "Starting to set up pianobar"
